@@ -3,6 +3,8 @@ package com.elleined.securityquestionapi.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "tbl_user_security_question")
 @Builder
@@ -30,6 +32,13 @@ public class UserSecurityQuestion {
             updatable = false
     )
     private Question question;
+
+    @Column(
+            name = "created_at",
+            nullable = false,
+            updatable = false
+    )
+    private LocalDateTime createdAt;
 
     @ManyToOne(optional = false)
     @JoinColumn(

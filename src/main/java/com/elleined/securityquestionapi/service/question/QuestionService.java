@@ -7,6 +7,9 @@ import java.util.List;
 
 public interface QuestionService {
     Question save(String question);
+
+    List<Question> save(List<String> questions);
+
     Question getById(int id);
     List<Question> getAll();
 }
