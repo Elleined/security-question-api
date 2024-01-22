@@ -12,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
-public class SecurityQuestion {
+public class Question {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,7 +32,7 @@ public class SecurityQuestion {
     )
     private String question;
 
-    @OneToMany(mappedBy = "securityQuestion")
+    @OneToMany(mappedBy = "question")
     @Setter(AccessLevel.NONE)
     private List<UserSecurityQuestion> userSecurityQuestions;
 }

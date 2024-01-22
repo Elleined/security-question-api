@@ -29,7 +29,7 @@ public class UserSecurityQuestion {
             nullable = false,
             updatable = false
     )
-    private SecurityQuestion securityQuestion;
+    private Question question;
 
     @ManyToOne(optional = false)
     @JoinColumn(
