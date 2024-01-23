@@ -8,6 +8,7 @@ import com.elleined.securityquestionapi.model.User;
 import java.util.List;
 
 public interface SecurityQuestionService {
+    int SECURITY_QUESTION_LIMIT = 3;
 
     List<SecurityQuestion> getAllByUser(User currentUser);
     boolean isAnswerCorrect(User currentUser, SecurityQuestion securityQuestion, String providedAnswer);

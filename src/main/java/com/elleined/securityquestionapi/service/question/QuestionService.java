@@ -11,5 +11,6 @@ public interface QuestionService {
 
     Question getById(int id);
     boolean existsById(int id);
+    boolean alreadyExists(String question);
     List<Question> getAll();
 }

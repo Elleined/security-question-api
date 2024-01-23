@@ -1,5 +1,6 @@
 package com.elleined.securityquestionapi.service.sq;
 
+import com.elleined.securityquestionapi.exception.SecurityQuestionLimitException;
 import com.elleined.securityquestionapi.exception.resource.ResourceNotFoundException;
 import com.elleined.securityquestionapi.exception.resource.ResourceNotOwnedException;
 import com.elleined.securityquestionapi.mapper.SecurityQuestionMapper;
@@ -13,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Comparator;
 import java.util.List;
 
 @Slf4j
@@ -27,7 +29,9 @@ public class SecurityQuestionServiceImpl implements SecurityQuestionService {
 
     @Override
     public List<SecurityQuestion> getAllByUser(User currentUser) {
-        return currentUser.getSecurityQuestions();
+        return currentUser.getSecurityQuestions().stream()
+                .sorted(Comparator.comparingInt(SecurityQuestion::getId))
+                .toList();
     }
 
     @Override
@@ -41,6 +45,7 @@ public class SecurityQuestionServiceImpl implements SecurityQuestionService {
 
     @Override
     public SecurityQuestion save(User currentUser, Question question, String answer) {
+        if (currentUser.hasReachedLimitOfSecurityQuestions()) throw new SecurityQuestionLimitException("Cannot save security question! because you already reached the limit which is only " + SECURITY_QUESTION_LIMIT + " per user!");
         String encodedAnswer = passwordEncoder.encode(answer);
 
         SecurityQuestion securityQuestion = securityQuestionMapper.toEntity(currentUser, question, encodedAnswer);

@@ -6,7 +6,7 @@ import lombok.*;
 import java.util.List;
 
 @Entity
-@Table(name = "tbl_security_question")
+@Table(name = "tbl_question")
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor

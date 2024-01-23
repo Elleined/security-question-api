@@ -1,6 +1,7 @@
 package com.elleined.securityquestionapi.model;
 
 
+import com.elleined.securityquestionapi.service.sq.SecurityQuestionService;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -36,5 +37,9 @@ public class User {
 
     public boolean has(SecurityQuestion securityQuestion) {
         return this.getSecurityQuestions().stream().anyMatch(securityQuestion::equals);
+    }
+
+    public boolean hasReachedLimitOfSecurityQuestions() {
+        return this.getSecurityQuestions().size() > SecurityQuestionService.SECURITY_QUESTION_LIMIT;
     }
 }
