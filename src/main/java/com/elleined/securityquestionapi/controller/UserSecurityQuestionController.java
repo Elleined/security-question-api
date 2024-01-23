@@ -40,7 +40,7 @@ public class UserSecurityQuestionController  {
     @PostMapping
     public UserSecurityQuestion save(@PathVariable("currentUserId") int currentUserId,
                                      @RequestParam("questionId") int questionId,
-                                     String answer) {
+                                     @RequestParam("answer") String answer) {
 
         User currentUser = userService.getById(currentUserId);
         Question question = questionService.getById(questionId);

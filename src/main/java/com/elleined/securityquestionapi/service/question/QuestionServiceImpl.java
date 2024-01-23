@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Comparator;
 import java.util.List;
 
 @Slf4j
@@ -50,6 +51,8 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     public List<Question> getAll() {
-        return questionRepository.findAll();
+        return questionRepository.findAll().stream()
+                .sorted(Comparator.comparingInt(Question::getId))
+                .toList();
     }
 }
