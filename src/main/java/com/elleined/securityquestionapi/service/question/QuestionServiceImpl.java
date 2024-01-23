@@ -8,7 +8,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -28,7 +27,7 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
-    public List<Question> save(List<String> questions) {
+    public List<Question> saveAll(List<String> questions) {
         List<Question> questionList = questions.stream()
                 .map(questionMapper::toEntity)
                 .toList();
@@ -41,6 +40,11 @@ public class QuestionServiceImpl implements QuestionService {
     @Override
     public Question getById(int id) {
         return questionRepository.findById(id).orElseThrow();
+    }
+
+    @Override
+    public boolean existsById(int id) {
+        return questionRepository.existsById(id);
     }
 
     @Override
