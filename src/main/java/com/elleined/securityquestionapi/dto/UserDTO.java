@@ -8,6 +8,8 @@ import lombok.Getter;
 import org.springframework.hateoas.RepresentationModel;
 import org.springframework.http.HttpMethod;
 
+import java.util.function.Supplier;
+
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
@@ -30,6 +32,9 @@ public class UserDTO extends RepresentationModel<UserDTO> implements HATEOUSLink
 
     @Override
     public UserDTO addSelfLinks() {
+        // Only add link if guard is true
+        this.addIf(true, () -> linkTo(methodOn(UserController.class).save(null)).withSelfRel());
+
         this.add(
                 linkTo(methodOn(UserController.class).getById(id))
                         .withSelfRel()
