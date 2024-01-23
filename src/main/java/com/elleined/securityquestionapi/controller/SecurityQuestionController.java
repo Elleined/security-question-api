@@ -9,6 +9,7 @@ import com.elleined.securityquestionapi.service.question.QuestionService;
 import com.elleined.securityquestionapi.service.sq.SecurityQuestionService;
 import com.elleined.securityquestionapi.service.user.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,18 +34,18 @@ public class SecurityQuestionController {
     }
 
     @GetMapping("/{securityQuestionId}/check-answer")
-    public boolean isAnswerCorrect(@PathVariable("currentUserId") int currentUserId,
-                                   @PathVariable("securityQuestionId") int securityQuestionId,
-                                   @RequestParam("providedAnswer") String providedAnswer) {
+    public ResponseEntity<Boolean> isAnswerCorrect(@PathVariable("currentUserId") int currentUserId,
+                                          @PathVariable("securityQuestionId") int securityQuestionId,
+                                          @RequestParam("providedAnswer") String providedAnswer) {
 
         User currentUser = userService.getById(currentUserId);
         SecurityQuestion securityQuestion = securityQuestionService.getById(securityQuestionId);
-        return securityQuestionService.isAnswerCorrect(currentUser, securityQuestion, providedAnswer);
+        return ResponseEntity.ok(securityQuestionService.isAnswerCorrect(currentUser, securityQuestion, providedAnswer));
     }
 
     @PostMapping
-    public SecurityQuestionDTO save(@PathVariable("currentUserId") Integer currentUserId,
-                                    @RequestParam("questionId") Integer questionId,
+    public SecurityQuestionDTO save(@PathVariable("currentUserId") int currentUserId,
+                                    @RequestParam("questionId") int questionId,
                                     @RequestParam("answer") String answer) {
 
         User currentUser = userService.getById(currentUserId);
