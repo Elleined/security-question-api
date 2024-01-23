@@ -1,5 +1,6 @@
 package com.elleined.securityquestionapi.service.question;
 
+import com.elleined.securityquestionapi.exception.resource.ResourceNotFoundException;
 import com.elleined.securityquestionapi.mapper.QuestionMapper;
 import com.elleined.securityquestionapi.model.Question;
 import com.elleined.securityquestionapi.repository.QuestionRepository;
@@ -39,7 +40,7 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     public Question getById(int id) {
-        return questionRepository.findById(id).orElseThrow();
+        return questionRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Question with id of " + id + " does not exists!"));
     }
 
     @Override
