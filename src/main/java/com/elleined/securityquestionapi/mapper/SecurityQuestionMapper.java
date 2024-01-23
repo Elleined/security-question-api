@@ -1,5 +1,6 @@
 package com.elleined.securityquestionapi.mapper;
 
+import com.elleined.securityquestionapi.dto.SecurityQuestionDTO;
 import com.elleined.securityquestionapi.model.Question;
 import com.elleined.securityquestionapi.model.User;
 import com.elleined.securityquestionapi.model.SecurityQuestion;
@@ -9,7 +10,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 
 @Mapper(componentModel = "spring")
-public interface UserSecurityQuestionMapper {
+public interface SecurityQuestionMapper {
 
     @Mappings({
             @Mapping(target = "id", ignore = true),
@@ -23,4 +24,11 @@ public interface UserSecurityQuestionMapper {
     SecurityQuestion toEntity(User currentUser,
                               @Context Question question,
                               @Context String answer);
+
+    @Mappings({
+
+            @Mapping(target = "ownerId", source = "user.id"),
+            @Mapping(target = "questionId", source = "question.id")
+    })
+    SecurityQuestionDTO toDTO(SecurityQuestion securityQuestion);
 }

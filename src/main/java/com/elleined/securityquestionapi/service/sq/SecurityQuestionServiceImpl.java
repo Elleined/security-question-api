@@ -2,7 +2,7 @@ package com.elleined.securityquestionapi.service.sq;
 
 import com.elleined.securityquestionapi.exception.resource.ResourceNotFoundException;
 import com.elleined.securityquestionapi.exception.resource.ResourceNotOwnedException;
-import com.elleined.securityquestionapi.mapper.UserSecurityQuestionMapper;
+import com.elleined.securityquestionapi.mapper.SecurityQuestionMapper;
 import com.elleined.securityquestionapi.model.Question;
 import com.elleined.securityquestionapi.model.User;
 import com.elleined.securityquestionapi.model.SecurityQuestion;
@@ -21,7 +21,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SecurityQuestionServiceImpl implements SecurityQuestionService {
     private final SecurityQuestionRepository securityQuestionRepository;
-    private final UserSecurityQuestionMapper userSecurityQuestionMapper;
+    private final SecurityQuestionMapper securityQuestionMapper;
 
     private final PasswordEncoder passwordEncoder;
 
@@ -43,7 +43,7 @@ public class SecurityQuestionServiceImpl implements SecurityQuestionService {
     public SecurityQuestion save(User currentUser, Question question, String answer) {
         String encodedAnswer = passwordEncoder.encode(answer);
 
-        SecurityQuestion securityQuestion = userSecurityQuestionMapper.toEntity(currentUser, question, encodedAnswer);
+        SecurityQuestion securityQuestion = securityQuestionMapper.toEntity(currentUser, question, encodedAnswer);
         securityQuestionRepository.save(securityQuestion);
         log.debug("User security question with id of {} saved successfully", securityQuestion.getId());
         return securityQuestion;
