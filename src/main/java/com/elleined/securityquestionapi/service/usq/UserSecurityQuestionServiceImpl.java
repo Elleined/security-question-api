@@ -1,5 +1,6 @@
 package com.elleined.securityquestionapi.service.usq;
 
+import com.elleined.securityquestionapi.exception.resource.ResourceNotFoundException;
 import com.elleined.securityquestionapi.exception.resource.ResourceNotOwnedException;
 import com.elleined.securityquestionapi.mapper.UserSecurityQuestionMapper;
 import com.elleined.securityquestionapi.model.Question;
@@ -12,6 +13,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Slf4j
 @Service
 @Transactional
@@ -21,6 +24,11 @@ public class UserSecurityQuestionServiceImpl implements UserSecurityQuestionServ
     private final UserSecurityQuestionMapper userSecurityQuestionMapper;
 
     private final PasswordEncoder passwordEncoder;
+
+    @Override
+    public List<UserSecurityQuestion> getAllByUser(User currentUser) {
+        return currentUser.getSecurityQuestions();
+    }
 
     @Override
     public boolean isAnswerCorrect(User currentUser, UserSecurityQuestion userSecurityQuestion, String providedAnswer) {
@@ -39,5 +47,10 @@ public class UserSecurityQuestionServiceImpl implements UserSecurityQuestionServ
         userSecurityQuestionRepository.save(userSecurityQuestion);
         log.debug("User security question with id of {} saved successfully", userSecurityQuestion.getId());
         return userSecurityQuestion;
+    }
+
+    @Override
+    public UserSecurityQuestion getById(int id) throws ResourceNotFoundException {
+        return userSecurityQuestionRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User security question with id of " + id + " doen't exists"));
     }
 }

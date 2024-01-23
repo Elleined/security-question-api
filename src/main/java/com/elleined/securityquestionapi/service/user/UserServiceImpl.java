@@ -2,9 +2,7 @@ package com.elleined.securityquestionapi.service.user;
 
 import com.elleined.securityquestionapi.exception.resource.ResourceNotFoundException;
 import com.elleined.securityquestionapi.mapper.UserMapper;
-import com.elleined.securityquestionapi.model.Question;
 import com.elleined.securityquestionapi.model.User;
-import com.elleined.securityquestionapi.model.UserSecurityQuestion;
 import com.elleined.securityquestionapi.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
