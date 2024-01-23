@@ -1,5 +1,6 @@
 package com.elleined.securityquestionapi.mapper;
 
+import com.elleined.securityquestionapi.dto.QuestionDTO;
 import com.elleined.securityquestionapi.model.Question;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -15,4 +16,6 @@ public interface QuestionMapper {
             @Mapping(target = "userSecurityQuestions", expression = "java(new java.util.ArrayList<>())"),
     })
     Question toEntity(String question);
+
+    QuestionDTO toDTO(Question question);
 }
