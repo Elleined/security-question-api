@@ -2,6 +2,7 @@ package com.elleined.securityquestionapi.mapper;
 
 import com.elleined.securityquestionapi.dto.UserDTO;
 import com.elleined.securityquestionapi.model.User;
+import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;

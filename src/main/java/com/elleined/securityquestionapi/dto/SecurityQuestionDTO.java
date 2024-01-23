@@ -8,11 +8,11 @@ import java.time.LocalDateTime;
 
 @Getter
 public class SecurityQuestionDTO extends RepresentationModel<SecurityQuestionDTO> {
-    private int id;
-    private LocalDateTime createdAt;
-    private int questionId;
-    private int ownerId;
-    private String answer;
+    private final int id;
+    private final LocalDateTime createdAt;
+    private final int questionId;
+    private final int ownerId;
+    private final String answer;
 
     @Builder
     public SecurityQuestionDTO(int id, LocalDateTime createdAt, int questionId, int ownerId, String answer) {

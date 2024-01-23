@@ -43,9 +43,9 @@ public class SecurityQuestionController {
     }
 
     @PostMapping
-    public SecurityQuestionDTO save(@PathVariable("currentUserId") int currentUserId,
-                                 @RequestParam("questionId") int questionId,
-                                 @RequestParam("answer") String answer) {
+    public SecurityQuestionDTO save(@PathVariable("currentUserId") Integer currentUserId,
+                                    @RequestParam("questionId") Integer questionId,
+                                    @RequestParam("answer") String answer) {
 
         User currentUser = userService.getById(currentUserId);
         Question question = questionService.getById(questionId);

@@ -24,7 +24,7 @@ public class QuestionServiceImpl implements QuestionService {
     @Override
     public Question save(String question) {
         if (alreadyExists(question))
-            throw new QuestionAlreadyExistsException("Cannot save question! because question already exists!");
+            throw new QuestionAlreadyExistsException("Cannot save question! becuase question already exists!");
 
         Question createdQuestion = questionMapper.toEntity(question);
         questionRepository.save(createdQuestion);
