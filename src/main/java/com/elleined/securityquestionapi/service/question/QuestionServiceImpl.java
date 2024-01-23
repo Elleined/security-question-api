@@ -1,5 +1,6 @@
 package com.elleined.securityquestionapi.service.question;
 
+import com.elleined.securityquestionapi.exception.question.QuestionAlreadyExistsException;
 import com.elleined.securityquestionapi.exception.resource.ResourceNotFoundException;
 import com.elleined.securityquestionapi.mapper.QuestionMapper;
 import com.elleined.securityquestionapi.model.Question;
@@ -22,6 +23,9 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     public Question save(String question) {
+        if (alreadyExists(question))
+            throw new QuestionAlreadyExistsException("Cannot save question! because question already exists!");
+
         Question createdQuestion = questionMapper.toEntity(question);
         questionRepository.save(createdQuestion);
         log.debug("Question with id of {} saved successfully", createdQuestion.getId());
@@ -30,6 +34,9 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     public List<Question> saveAll(List<String> questions) {
+        if (questions.stream().anyMatch(this::alreadyExists))
+            throw new QuestionAlreadyExistsException("Cannot save all question! because one of the question already exists in database!");
+
         List<Question> questionList = questions.stream()
                 .map(questionMapper::toEntity)
                 .toList();
@@ -47,6 +54,13 @@ public class QuestionServiceImpl implements QuestionService {
     @Override
     public boolean existsById(int id) {
         return questionRepository.existsById(id);
+    }
+
+    @Override
+    public boolean alreadyExists(String question) {
+        return questionRepository.findAll().stream()
+                .map(Question::getQuestion)
+                .anyMatch(question::equalsIgnoreCase);
     }
 
     @Override
