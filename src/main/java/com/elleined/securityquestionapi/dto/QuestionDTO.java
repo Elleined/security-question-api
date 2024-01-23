@@ -1,5 +1,6 @@
 package com.elleined.securityquestionapi.dto;
 
+import lombok.Builder;
 import lombok.Getter;
 import org.springframework.hateoas.RepresentationModel;
 
@@ -8,6 +9,7 @@ public class QuestionDTO extends RepresentationModel<QuestionDTO> {
     private final int id;
     private final String question;
 
+    @Builder
     public QuestionDTO(int id, String question) {
         this.id = id;
         this.question = question;

@@ -2,7 +2,7 @@ package com.elleined.securityquestionapi.mapper;
 
 import com.elleined.securityquestionapi.model.Question;
 import com.elleined.securityquestionapi.model.User;
-import com.elleined.securityquestionapi.model.UserSecurityQuestion;
+import com.elleined.securityquestionapi.model.SecurityQuestion;
 import org.mapstruct.Context;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -20,7 +20,7 @@ public interface UserSecurityQuestionMapper {
 
             @Mapping(target = "createdAt", expression = "java(java.time.LocalDateTime.now())"),
     })
-    UserSecurityQuestion toEntity(User currentUser,
-                                  @Context Question question,
-                                  @Context String answer);
+    SecurityQuestion toEntity(User currentUser,
+                              @Context Question question,
+                              @Context String answer);
 }

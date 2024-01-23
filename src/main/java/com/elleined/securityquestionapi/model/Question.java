@@ -34,5 +34,5 @@ public class Question {
 
     @OneToMany(mappedBy = "question")
     @Setter(AccessLevel.NONE)
-    private List<UserSecurityQuestion> userSecurityQuestions;
+    private List<SecurityQuestion> securityQuestions;
 }

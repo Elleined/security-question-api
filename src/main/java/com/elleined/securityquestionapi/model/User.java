@@ -32,9 +32,9 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     @Setter(AccessLevel.NONE)
-    private List<UserSecurityQuestion> securityQuestions;
+    private List<SecurityQuestion> securityQuestions;
 
-    public boolean has(UserSecurityQuestion userSecurityQuestion) {
-        return this.getSecurityQuestions().stream().anyMatch(userSecurityQuestion::equals);
+    public boolean has(SecurityQuestion securityQuestion) {
+        return this.getSecurityQuestions().stream().anyMatch(securityQuestion::equals);
     }
 }

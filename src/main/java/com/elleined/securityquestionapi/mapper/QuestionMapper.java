@@ -13,7 +13,7 @@ public interface QuestionMapper {
             @Mapping(target = "id", ignore = true),
 
             @Mapping(target = "question", expression = "java(question)"),
-            @Mapping(target = "userSecurityQuestions", expression = "java(new java.util.ArrayList<>())"),
+            @Mapping(target = "securityQuestions", expression = "java(new java.util.ArrayList<>())"),
     })
     Question toEntity(String question);
 
