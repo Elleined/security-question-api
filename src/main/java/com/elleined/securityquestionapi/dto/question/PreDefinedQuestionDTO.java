@@ -18,6 +18,7 @@ public class PreDefinedQuestionDTO extends QuestionDTO {
     @Builder(builderMethodName = "preDefinedQuestionDTOBuilder")
     public PreDefinedQuestionDTO(int id, String question) {
         super(id, question);
+        addLinks();
     }
 
 
@@ -35,7 +36,7 @@ public class PreDefinedQuestionDTO extends QuestionDTO {
     public void addRelatedLinks() {
         this.add(
                 linkTo(methodOn(SecurityQuestionController.class).save(null, getId(), null))
-                        .withRel("security-questions")
+                        .withRel("pre-defined-security-questions")
                         .withType("POST")
                         .withTitle("Save security question")
         );

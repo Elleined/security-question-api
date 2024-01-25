@@ -1,6 +1,5 @@
 package com.elleined.securityquestionapi.dto.question;
 
-import com.elleined.securityquestionapi.controller.SecurityQuestionController;
 import com.elleined.securityquestionapi.controller.question.CustomQuestionController;
 import lombok.Builder;
 import lombok.Getter;
@@ -26,6 +25,7 @@ public class CustomQuestionDTO extends QuestionDTO {
         this.ownerId = ownerId;
         this.createdAt = createdAt;
         this.answer = answer;
+        addLinks();
     }
 
     @Override
@@ -33,26 +33,21 @@ public class CustomQuestionDTO extends QuestionDTO {
         this.add(
                 linkTo(methodOn(CustomQuestionController.class).getAll(null))
                         .withSelfRel()
-                        .withTitle("Get all custom question by owner")
+                        .withTitle("Get all question by owner")
                         .withType("GET"),
                 linkTo(methodOn(CustomQuestionController.class).isAnswerCorrect(null, getId(), null))
                         .withSelfRel()
-                        .withTitle("Check answer")
+                        .withTitle("Check if security question answer is correct")
                         .withType("GET"),
                 linkTo(methodOn(CustomQuestionController.class).save(null, null, null))
                         .withSelfRel()
-                        .withTitle("Create custom question")
+                        .withTitle("Create security question")
                         .withType("POST")
         );
     }
 
     @Override
     public void addRelatedLinks() {
-        this.add(
-                linkTo(methodOn(SecurityQuestionController.class).save(null, getId(), null))
-                        .withRel("security-questions")
-                        .withType("POST")
-                        .withTitle("Save custom security question")
-        );
+
     }
 }

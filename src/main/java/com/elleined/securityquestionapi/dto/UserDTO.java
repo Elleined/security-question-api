@@ -61,7 +61,7 @@ public class UserDTO extends HateousLinker<UserDTO> {
                         .withType("GET")
         );
 
-        // Custom question
+        // Custom security question
         this.add(
                 linkTo(methodOn(CustomQuestionController.class).getAll(id))
                         .withRel("custom-security-question")

@@ -26,7 +26,7 @@ public class SecurityQuestionController {
     private final PreDefinedQuestionService preDefinedQuestionService;
 
     @GetMapping
-    public List<SecurityQuestionDTO> getAllByUser(@PathVariable("currentUserId") int currentUserId) {
+    public List<SecurityQuestionDTO> getAllByUser(@PathVariable("currentUserId") Integer currentUserId) {
         User currentUser = userService.getById(currentUserId);
         return securityQuestionService.getAllByUser(currentUser).stream()
                 .map(securityQuestionMapper::toDTO)
@@ -34,7 +34,7 @@ public class SecurityQuestionController {
     }
 
     @GetMapping("/{securityQuestionId}/check-answer")
-    public ResponseEntity<Boolean> isAnswerCorrect(@PathVariable("currentUserId") int currentUserId,
+    public ResponseEntity<Boolean> isAnswerCorrect(@PathVariable("currentUserId") Integer currentUserId,
                                                    @PathVariable("securityQuestionId") Integer securityQuestionId,
                                                    @RequestParam("providedAnswer") String providedAnswer) {
 
