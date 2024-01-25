@@ -7,6 +7,6 @@ import com.elleined.securityquestionapi.service.question.QuestionService;
 import java.util.List;
 
 public interface CustomQuestionService extends QuestionService<CustomQuestion> {
-    CustomQuestion save(User currentUser, String question);
+    CustomQuestion save(User currentUser, String question, String answer);
     List<CustomQuestion> getAllByOwner(User currentUser);
 }

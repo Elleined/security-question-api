@@ -6,6 +6,8 @@ import com.elleined.securityquestionapi.exception.resource.ResourceNotOwnedExcep
 import com.elleined.securityquestionapi.mapper.SecurityQuestionMapper;
 import com.elleined.securityquestionapi.model.SecurityQuestion;
 import com.elleined.securityquestionapi.model.User;
+import com.elleined.securityquestionapi.model.question.CustomQuestion;
+import com.elleined.securityquestionapi.model.question.PreDefinedQuestion;
 import com.elleined.securityquestionapi.model.question.Question;
 import com.elleined.securityquestionapi.repository.SecurityQuestionRepository;
 import lombok.RequiredArgsConstructor;
@@ -44,11 +46,11 @@ public class SecurityQuestionServiceImpl implements SecurityQuestionService {
     }
 
     @Override
-    public SecurityQuestion save(User currentUser, Question question, String answer) {
+    public SecurityQuestion save(User currentUser, PreDefinedQuestion preDefinedQuestion, String answer) {
         if (currentUser.hasReachedLimitOfSecurityQuestions()) throw new SecurityQuestionLimitException("Cannot save security question! because you already reached the limit which is only " + SECURITY_QUESTION_LIMIT + " per user!");
         String encodedAnswer = passwordEncoder.encode(answer);
 
-        SecurityQuestion securityQuestion = securityQuestionMapper.toEntity(currentUser, question, encodedAnswer);
+        SecurityQuestion securityQuestion = securityQuestionMapper.toEntity(currentUser, preDefinedQuestion, encodedAnswer);
         securityQuestionRepository.save(securityQuestion);
         log.debug("User security question with id of {} saved successfully", securityQuestion.getId());
         return securityQuestion;

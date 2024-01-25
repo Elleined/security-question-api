@@ -22,9 +22,10 @@ public class CustomQuestionController {
 
     @PostMapping
     public CustomQuestionDTO save(@PathVariable("currentUserId") int currentUserId,
-                                  @RequestParam("question") String question) {
+                                  @RequestParam("question") String question,
+                                  @RequestParam("answer") String answer) {
         User currentUser = userService.getById(currentUserId);
-        CustomQuestion customQuestion = customQuestionService.save(currentUser, question);
+        CustomQuestion customQuestion = customQuestionService.save(currentUser, question, answer);
         return customQuestionMapper.toDTO(customQuestion);
     }
 

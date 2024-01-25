@@ -7,7 +7,7 @@ import lombok.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "tbl_security_question")
+@Table(name = "tbl_pre_defined_security_question")
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -34,7 +34,8 @@ public class SecurityQuestion {
 
     @Column(
             name = "answer",
-            nullable = false
+            nullable = false,
+            updatable = false
     )
     private String answer;
 

@@ -4,8 +4,10 @@ import com.elleined.securityquestionapi.dto.SecurityQuestionDTO;
 import com.elleined.securityquestionapi.mapper.SecurityQuestionMapper;
 import com.elleined.securityquestionapi.model.SecurityQuestion;
 import com.elleined.securityquestionapi.model.User;
+import com.elleined.securityquestionapi.model.question.PreDefinedQuestion;
 import com.elleined.securityquestionapi.model.question.Question;
 import com.elleined.securityquestionapi.service.question.QuestionService;
+import com.elleined.securityquestionapi.service.question.pdq.PreDefinedQuestionService;
 import com.elleined.securityquestionapi.service.sq.SecurityQuestionService;
 import com.elleined.securityquestionapi.service.user.UserService;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +25,7 @@ public class SecurityQuestionController {
 
     private final UserService userService;
 
-    private final QuestionService questionService;
+    private final PreDefinedQuestionService preDefinedQuestionService;
 
     @GetMapping
     public List<SecurityQuestionDTO> getAllByUser(@PathVariable("currentUserId") int currentUserId) {
@@ -49,8 +51,8 @@ public class SecurityQuestionController {
                                     @RequestParam("answer") String answer) {
 
         User currentUser = userService.getById(currentUserId);
-        Question question = questionService.getById(questionId);
-        SecurityQuestion securityQuestion = securityQuestionService.save(currentUser, question, answer);
+        PreDefinedQuestion preDefinedQuestion = preDefinedQuestionService.getById(questionId);
+        SecurityQuestion securityQuestion = securityQuestionService.save(currentUser, preDefinedQuestion, answer);
         return securityQuestionMapper.toDTO(securityQuestion);
     }
 }

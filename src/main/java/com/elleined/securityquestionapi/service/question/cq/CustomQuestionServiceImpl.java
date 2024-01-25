@@ -3,10 +3,12 @@ package com.elleined.securityquestionapi.service.question.cq;
 import com.elleined.securityquestionapi.exception.question.QuestionAlreadyExistsException;
 import com.elleined.securityquestionapi.exception.resource.ResourceNotFoundException;
 import com.elleined.securityquestionapi.mapper.question.CustomQuestionMapper;
+import com.elleined.securityquestionapi.model.SecurityQuestion;
 import com.elleined.securityquestionapi.model.User;
 import com.elleined.securityquestionapi.model.question.CustomQuestion;
 import com.elleined.securityquestionapi.model.question.Question;
 import com.elleined.securityquestionapi.repository.question.CustomQuestionRepository;
+import com.elleined.securityquestionapi.service.sq.SecurityQuestionService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -22,6 +24,8 @@ import java.util.List;
 public class CustomQuestionServiceImpl implements CustomQuestionService {
     private final CustomQuestionRepository customQuestionRepository;
     private final CustomQuestionMapper customQuestionMapper;
+
+    private final SecurityQuestionService securityQuestionService;
 
     @Override
     public CustomQuestion getById(int id) {
@@ -41,12 +45,13 @@ public class CustomQuestionServiceImpl implements CustomQuestionService {
     }
 
     @Override
-    public CustomQuestion save(User currentUser, String question) {
+    public CustomQuestion save(User currentUser, String question, String answer) {
         if (alreadyExists(question))
             throw new QuestionAlreadyExistsException("Cannot save question! becuase question already exists!");
 
-        CustomQuestion createdQuestion = customQuestionMapper.toEntity(currentUser, question);
+        CustomQuestion createdQuestion = customQuestionMapper.toEntity(currentUser, question, answer);
         customQuestionRepository.save(createdQuestion);
+
         log.debug("Question with id of {} saved successfully", createdQuestion.getId());
         return createdQuestion;
     }

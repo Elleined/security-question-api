@@ -3,15 +3,13 @@ package com.elleined.securityquestionapi.model.question;
 
 import com.elleined.securityquestionapi.model.SecurityQuestion;
 import com.elleined.securityquestionapi.model.User;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -30,9 +28,25 @@ public class CustomQuestion extends Question {
     )
     private User owner;
 
+    @Column(
+            name = "created_at",
+            nullable = false,
+            updatable = false
+    )
+    private LocalDateTime createdAt;
+
+    @Column(
+            name = "answer",
+            nullable = false,
+            updatable = false
+    )
+    private String answer;
+
     @Builder(builderMethodName = "customQuestionBuilder")
-    public CustomQuestion(int id, String question, List<SecurityQuestion> securityQuestions, User owner) {
+    public CustomQuestion(int id, String question, List<SecurityQuestion> securityQuestions, User owner, LocalDateTime createdAt, String answer) {
         super(id, question, securityQuestions);
         this.owner = owner;
+        this.createdAt = createdAt;
+        this.answer = answer;
     }
 }

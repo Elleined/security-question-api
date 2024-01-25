@@ -15,11 +15,14 @@ public interface CustomQuestionMapper {
 
             @Mapping(target = "question", expression = "java(question)"),
             @Mapping(target = "owner", expression = "java(currentUser)"),
+            @Mapping(target = "answer", expression = "java(answer)"),
 
-            @Mapping(target = "securityQuestions", expression = "java(new java.util.ArrayList<>())")
+            @Mapping(target = "createdAt", expression = "java(java.time.LocalDateTime.now())"),
+            @Mapping(target = "securityQuestions", expression = "java(new java.util.ArrayList<>())"),
     })
     CustomQuestion toEntity(User currentUser,
-                            @Context String question);
+                            String question,
+                            @Context String answer);
 
     @Mappings({
             @Mapping(target = "ownerId", source = "owner.id")
