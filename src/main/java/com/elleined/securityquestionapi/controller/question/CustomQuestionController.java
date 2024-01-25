@@ -22,7 +22,7 @@ public class CustomQuestionController {
     private final UserService userService;
 
     @PostMapping
-    public CustomQuestionDTO save(@PathVariable("currentUserId") int currentUserId,
+    public CustomQuestionDTO save(@PathVariable("currentUserId") Integer currentUserId,
                                   @RequestParam("question") String question,
                                   @RequestParam("answer") String answer) {
         User currentUser = userService.getById(currentUserId);
@@ -31,7 +31,7 @@ public class CustomQuestionController {
     }
 
     @GetMapping("/{customQuestionId}/check-answer")
-    public ResponseEntity<Boolean> isAnswerCorrect(@PathVariable("currentUserId") int currentUserId,
+    public ResponseEntity<Boolean> isAnswerCorrect(@PathVariable("currentUserId") Integer currentUserId,
                                                    @PathVariable("customQuestionId") Integer customQuestionId,
                                                    @RequestParam("providedAnswer") String providedAnswer) {
 
@@ -41,7 +41,7 @@ public class CustomQuestionController {
     }
 
     @GetMapping
-    public List<CustomQuestionDTO> getAll(@PathVariable("currentUserId") int currentUserId) {
+    public List<CustomQuestionDTO> getAll(@PathVariable("currentUserId") Integer currentUserId) {
         User currentUser = userService.getById(currentUserId);
         return customQuestionService.getAllByOwner(currentUser).stream()
                 .map(customQuestionMapper::toDTO)

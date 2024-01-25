@@ -31,11 +31,15 @@ public class CustomQuestionDTO extends QuestionDTO {
     @Override
     public void addSelfLinks() {
         this.add(
-                linkTo(methodOn(CustomQuestionController.class).getAll(ownerId))
+                linkTo(methodOn(CustomQuestionController.class).getAll(null))
                         .withSelfRel()
                         .withTitle("Get all custom question by owner")
                         .withType("GET"),
-                linkTo(methodOn(CustomQuestionController.class).save(ownerId, null, null))
+                linkTo(methodOn(CustomQuestionController.class).isAnswerCorrect(null, getId(), null))
+                        .withSelfRel()
+                        .withTitle("Check answer")
+                        .withType("GET"),
+                linkTo(methodOn(CustomQuestionController.class).save(null, null, null))
                         .withSelfRel()
                         .withTitle("Create custom question")
                         .withType("POST")
@@ -48,7 +52,7 @@ public class CustomQuestionDTO extends QuestionDTO {
                 linkTo(methodOn(SecurityQuestionController.class).save(null, getId(), null))
                         .withRel("security-questions")
                         .withType("POST")
-                        .withTitle("Save security question")
+                        .withTitle("Save custom security question")
         );
     }
 }
