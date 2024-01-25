@@ -4,13 +4,9 @@ import com.elleined.securityquestionapi.model.question.Question;
 
 import java.util.List;
 
-public interface QuestionService {
-    Question save(String question);
-
-    List<Question> saveAll(List<String> questions);
-
-    Question getById(int id);
+public interface QuestionService<T extends Question> {
+    T getById(int id);
     boolean existsById(int id);
     boolean alreadyExists(String question);
-    List<Question> getAll();
+    List<T> getAll();
 }
