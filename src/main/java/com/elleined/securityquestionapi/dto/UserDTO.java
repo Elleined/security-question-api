@@ -1,6 +1,6 @@
 package com.elleined.securityquestionapi.dto;
 
-import com.elleined.securityquestionapi.controller.QuestionController;
+import com.elleined.securityquestionapi.controller.question.PreDefinedQuestionController;
 import com.elleined.securityquestionapi.controller.SecurityQuestionController;
 import com.elleined.securityquestionapi.controller.UserController;
 import lombok.Builder;
@@ -54,11 +54,11 @@ public class UserDTO extends HateousLinker<UserDTO> {
 
         // Question
         this.add(
-                linkTo(methodOn(QuestionController.class).save(null))
+                linkTo(methodOn(PreDefinedQuestionController.class).save(null))
                         .withRel("questions")
                         .withTitle("Create custom question")
                         .withType("POST"),
-                linkTo(methodOn(QuestionController.class).getAll())
+                linkTo(methodOn(PreDefinedQuestionController.class).getAll())
                         .withRel("questions")
                         .withTitle("Get all question")
                         .withType("GET")

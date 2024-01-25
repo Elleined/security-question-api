@@ -1,6 +1,6 @@
 package com.elleined.securityquestionapi.mapper;
 
-import com.elleined.securityquestionapi.dto.QuestionDTO;
+import com.elleined.securityquestionapi.dto.question.QuestionDTO;
 import com.elleined.securityquestionapi.model.User;
 import com.elleined.securityquestionapi.model.question.CustomQuestion;
 import com.elleined.securityquestionapi.model.question.PreDefinedQuestion;
