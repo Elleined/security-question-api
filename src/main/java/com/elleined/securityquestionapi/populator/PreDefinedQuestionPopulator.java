@@ -1,6 +1,6 @@
 package com.elleined.securityquestionapi.populator;
 
-import com.elleined.securityquestionapi.service.question.QuestionService;
+import com.elleined.securityquestionapi.service.question.pdq.PreDefinedQuestionService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -13,8 +13,8 @@ import java.util.List;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class QuestionPopulator implements Populator {
-    private final QuestionService questionService;
+public class PreDefinedQuestionPopulator implements Populator {
+    private final PreDefinedQuestionService preDefinedQuestionService;
 
     @Override
     public void populate() {
@@ -31,6 +31,6 @@ public class QuestionPopulator implements Populator {
                 "What time of the day were you born(hh:mm)",
                 "What time of the day was your first child born(hh:mm)"
         );
-        questionService.saveAll(questions);
+        preDefinedQuestionService.saveAll(questions);
     }
 }

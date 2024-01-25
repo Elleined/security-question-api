@@ -1,6 +1,6 @@
 package com.elleined.securityquestionapi;
 
-import com.elleined.securityquestionapi.populator.QuestionPopulator;
+import com.elleined.securityquestionapi.populator.PreDefinedQuestionPopulator;
 import com.elleined.securityquestionapi.service.question.QuestionService;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class AfterStartUp {
-    private final QuestionPopulator questionPopulator;
+    private final PreDefinedQuestionPopulator preDefinedQuestionPopulator;
     private final QuestionService questionService;
 
     @PostConstruct
@@ -21,7 +21,7 @@ public class AfterStartUp {
         }
 
         System.out.println("Saving questions! Please wait...");
-        questionPopulator.populate();
+        preDefinedQuestionPopulator.populate();
         System.out.println("Saving questions success...");
     }
 }
