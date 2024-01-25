@@ -1,5 +1,6 @@
 package com.elleined.securityquestionapi.dto.question;
 
+import com.elleined.securityquestionapi.controller.UserController;
 import com.elleined.securityquestionapi.controller.question.CustomQuestionController;
 import lombok.Builder;
 import lombok.Getter;
@@ -48,6 +49,6 @@ public class CustomQuestionDTO extends QuestionDTO {
 
     @Override
     public void addRelatedLinks() {
-
+        this.add(linkTo(methodOn(UserController.class).getById(ownerId)).withRel("owner"));
     }
 }

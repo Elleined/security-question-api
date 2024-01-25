@@ -1,6 +1,8 @@
 package com.elleined.securityquestionapi.dto;
 
 import com.elleined.securityquestionapi.controller.SecurityQuestionController;
+import com.elleined.securityquestionapi.controller.UserController;
+import com.elleined.securityquestionapi.controller.question.PreDefinedQuestionController;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -47,6 +49,7 @@ public class SecurityQuestionDTO extends HateousLinker<SecurityQuestionDTO> {
 
     @Override
     public void addRelatedLinks() {
-
+        this.add(linkTo(methodOn(UserController.class).getById(ownerId)).withRel("owner"));
+        this.add(linkTo(methodOn(PreDefinedQuestionController.class).getById(questionId)).withRel("question"));
     }
 }

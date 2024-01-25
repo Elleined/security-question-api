@@ -2,9 +2,11 @@ package com.elleined.securityquestionapi.controller.question;
 
 import com.elleined.securityquestionapi.dto.question.PreDefinedQuestionDTO;
 import com.elleined.securityquestionapi.mapper.question.PreDefinedQuestionMapper;
+import com.elleined.securityquestionapi.model.question.PreDefinedQuestion;
 import com.elleined.securityquestionapi.service.question.pdq.PreDefinedQuestionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,5 +24,11 @@ public class PreDefinedQuestionController {
         return preDefinedQuestionService.getAll().stream()
                 .map(preDefinedQuestionMapper::toDTO)
                 .toList();
+    }
+
+    @GetMapping("/{questionId}")
+    public PreDefinedQuestionDTO getById(@PathVariable("questionId") int questionId) {
+        PreDefinedQuestion preDefinedQuestion = preDefinedQuestionService.getById(questionId);
+        return preDefinedQuestionMapper.toDTO(preDefinedQuestion);
     }
 }
