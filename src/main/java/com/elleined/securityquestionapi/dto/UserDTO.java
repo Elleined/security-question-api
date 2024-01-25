@@ -5,16 +5,11 @@ import com.elleined.securityquestionapi.controller.SecurityQuestionController;
 import com.elleined.securityquestionapi.controller.UserController;
 import lombok.Builder;
 import lombok.Getter;
-import org.springframework.hateoas.RepresentationModel;
-import org.springframework.http.HttpMethod;
-
-import java.util.function.Supplier;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Getter
-public class UserDTO extends RepresentationModel<UserDTO> implements HATEOUSLinker<UserDTO> {
+public class UserDTO extends HATEOUSLinker<UserDTO> {
     private final int id;
     private final String name;
 
@@ -26,14 +21,13 @@ public class UserDTO extends RepresentationModel<UserDTO> implements HATEOUSLink
 
     @Override
     public UserDTO addLinks() {
-        return this.addSelfLinks()
-                .addRelatedLinks();
+        return addSelfLinks().addRelatedLinks();
     }
 
     @Override
-    public UserDTO addSelfLinks() {
+    UserDTO addSelfLinks() {
         // Only add link if guard is true
-        this.addIf(true, () -> linkTo(methodOn(UserController.class).save(null)).withSelfRel());
+        // this.addIf(false, () -> linkTo(methodOn(UserController.class).save(null)).withSelfRel());
 
         this.add(
                 linkTo(methodOn(UserController.class).getById(id))
@@ -46,7 +40,7 @@ public class UserDTO extends RepresentationModel<UserDTO> implements HATEOUSLink
     }
 
     @Override
-    public UserDTO addRelatedLinks() {
+    UserDTO addRelatedLinks() {
         // Security Question
         this.add(
                 linkTo(methodOn(SecurityQuestionController.class).getAllByUser(id))
@@ -59,7 +53,7 @@ public class UserDTO extends RepresentationModel<UserDTO> implements HATEOUSLink
                         .withTitle("Save security question"),
                 linkTo(methodOn(SecurityQuestionController.class).isAnswerCorrect(id, 0, null))
                         .withRel("security-questions")
-                        .withTitle("Check if security answer is correct")
+                        .withTitle("Check if security question answer is correct")
                         .withType("GET")
         );
 

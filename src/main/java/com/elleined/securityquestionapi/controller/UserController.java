@@ -7,8 +7,6 @@ import com.elleined.securityquestionapi.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
-
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/users")
