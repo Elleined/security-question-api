@@ -2,6 +2,7 @@ package com.elleined.securityquestionapi.service.question.pdq;
 
 import com.elleined.securityquestionapi.exception.question.QuestionAlreadyExistsException;
 import com.elleined.securityquestionapi.exception.resource.ResourceNotFoundException;
+import com.elleined.securityquestionapi.mapper.question.PreDefinedQuestionMapper;
 import com.elleined.securityquestionapi.model.question.PreDefinedQuestion;
 import com.elleined.securityquestionapi.model.question.Question;
 import com.elleined.securityquestionapi.repository.question.PreDefinedQuestionRepository;
@@ -19,7 +20,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PreDefinedQuestionServiceImpl implements PreDefinedQuestionService {
     private final PreDefinedQuestionRepository preDefinedQuestionRepository;
-    private final QuestionMapper questionMapper;
+    private final PreDefinedQuestionMapper predefinedQuestionMapper;
 
     @Override
     public PreDefinedQuestion getById(int id) {
@@ -50,7 +51,7 @@ public class PreDefinedQuestionServiceImpl implements PreDefinedQuestionService 
         if (alreadyExists(question))
             throw new QuestionAlreadyExistsException("Cannot save question! becuase question already exists!");
 
-        PreDefinedQuestion createdQuestion = questionMapper.toEntity(question);
+        PreDefinedQuestion createdQuestion = predefinedQuestionMapper.toEntity(question);
         preDefinedQuestionRepository.save(createdQuestion);
         log.debug("Question with id of {} saved successfully", createdQuestion.getId());
         return createdQuestion;
@@ -62,7 +63,7 @@ public class PreDefinedQuestionServiceImpl implements PreDefinedQuestionService 
             throw new QuestionAlreadyExistsException("Cannot save all question! because one of the question already exists in database!");
 
         List<PreDefinedQuestion> questionList = questions.stream()
-                .map(questionMapper::toEntity)
+                .map(predefinedQuestionMapper::toEntity)
                 .toList();
 
         preDefinedQuestionRepository.saveAll(questionList);
