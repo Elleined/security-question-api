@@ -1,7 +1,6 @@
 package com.elleined.securityquestionapi;
 
 import com.elleined.securityquestionapi.populator.PreDefinedQuestionPopulator;
-import com.elleined.securityquestionapi.service.question.QuestionService;
 import com.elleined.securityquestionapi.service.question.pdq.PreDefinedQuestionService;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;

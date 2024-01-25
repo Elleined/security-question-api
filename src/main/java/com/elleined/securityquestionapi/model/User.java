@@ -44,6 +44,10 @@ public class User {
         return this.getSecurityQuestions().stream().anyMatch(securityQuestion::equals);
     }
 
+    public boolean has(CustomQuestion customQuestion) {
+        return this.getCustomQuestions().stream().anyMatch(customQuestion::equals);
+    }
+
     public boolean hasReachedLimitOfSecurityQuestions() {
         return this.getSecurityQuestions().size() > SecurityQuestionService.SECURITY_QUESTION_LIMIT;
     }

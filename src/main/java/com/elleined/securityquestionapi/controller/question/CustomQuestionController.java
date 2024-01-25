@@ -7,6 +7,7 @@ import com.elleined.securityquestionapi.model.question.CustomQuestion;
 import com.elleined.securityquestionapi.service.question.cq.CustomQuestionService;
 import com.elleined.securityquestionapi.service.user.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,6 +28,16 @@ public class CustomQuestionController {
         User currentUser = userService.getById(currentUserId);
         CustomQuestion customQuestion = customQuestionService.save(currentUser, question, answer);
         return customQuestionMapper.toDTO(customQuestion);
+    }
+
+    @GetMapping("/{customQuestionId}/check-answer")
+    public ResponseEntity<Boolean> isAnswerCorrect(@PathVariable("currentUserId") int currentUserId,
+                                                   @PathVariable("customQuestionId") Integer customQuestionId,
+                                                   @RequestParam("providedAnswer") String providedAnswer) {
+
+        User currentUser = userService.getById(currentUserId);
+        CustomQuestion customQuestion = customQuestionService.getById(customQuestionId);
+        return ResponseEntity.ok(customQuestionService.isAnswerCorrect(currentUser, customQuestion, providedAnswer));
     }
 
     @GetMapping
