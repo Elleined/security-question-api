@@ -4,9 +4,9 @@ import com.elleined.securityquestionapi.exception.SecurityQuestionLimitException
 import com.elleined.securityquestionapi.exception.resource.ResourceNotFoundException;
 import com.elleined.securityquestionapi.exception.resource.ResourceNotOwnedException;
 import com.elleined.securityquestionapi.mapper.SecurityQuestionMapper;
-import com.elleined.securityquestionapi.model.question.Question;
 import com.elleined.securityquestionapi.model.SecurityQuestion;
 import com.elleined.securityquestionapi.model.User;
+import com.elleined.securityquestionapi.model.question.Question;
 import com.elleined.securityquestionapi.repository.SecurityQuestionRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

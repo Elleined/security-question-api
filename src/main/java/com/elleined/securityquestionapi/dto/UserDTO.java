@@ -1,8 +1,8 @@
 package com.elleined.securityquestionapi.dto;
 
-import com.elleined.securityquestionapi.controller.question.PreDefinedQuestionController;
 import com.elleined.securityquestionapi.controller.SecurityQuestionController;
 import com.elleined.securityquestionapi.controller.UserController;
+import com.elleined.securityquestionapi.controller.question.PreDefinedQuestionController;
 import lombok.Builder;
 import lombok.Getter;
 

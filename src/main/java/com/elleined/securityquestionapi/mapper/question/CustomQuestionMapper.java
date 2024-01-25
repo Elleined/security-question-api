@@ -1,17 +1,14 @@
-package com.elleined.securityquestionapi.mapper;
+package com.elleined.securityquestionapi.mapper.question;
 
-import com.elleined.securityquestionapi.dto.question.QuestionDTO;
+import com.elleined.securityquestionapi.dto.question.CustomQuestionDTO;
 import com.elleined.securityquestionapi.model.User;
 import com.elleined.securityquestionapi.model.question.CustomQuestion;
-import com.elleined.securityquestionapi.model.question.PreDefinedQuestion;
-import com.elleined.securityquestionapi.model.question.Question;
 import org.mapstruct.Context;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
-
 @Mapper(componentModel = "spring")
-public interface QuestionMapper {
+public interface CustomQuestionMapper {
 
     @Mappings({
             @Mapping(target = "id", ignore = true),
@@ -25,11 +22,7 @@ public interface QuestionMapper {
                             @Context String question);
 
     @Mappings({
-            @Mapping(target = "id", ignore = true),
-            @Mapping(target = "question", expression = "java(question)"),
-            @Mapping(target = "securityQuestions", expression = "java(new java.util.ArrayList<>())")
+            @Mapping(target = "ownerId", source = "owner.id")
     })
-    PreDefinedQuestion toEntity(String question);
-
-    QuestionDTO toDTO(Question question);
+    CustomQuestionDTO toDTO(CustomQuestion customQuestion);
 }

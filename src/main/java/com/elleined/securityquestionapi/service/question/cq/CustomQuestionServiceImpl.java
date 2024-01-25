@@ -2,7 +2,6 @@ package com.elleined.securityquestionapi.service.question.cq;
 
 import com.elleined.securityquestionapi.exception.question.QuestionAlreadyExistsException;
 import com.elleined.securityquestionapi.exception.resource.ResourceNotFoundException;
-import com.elleined.securityquestionapi.mapper.QuestionMapper;
 import com.elleined.securityquestionapi.model.User;
 import com.elleined.securityquestionapi.model.question.CustomQuestion;
 import com.elleined.securityquestionapi.model.question.Question;
@@ -41,13 +40,6 @@ public class CustomQuestionServiceImpl implements CustomQuestionService {
     }
 
     @Override
-    public List<CustomQuestion> getAll() {
-        return customQuestionRepository.findAll().stream()
-                .sorted(Comparator.comparingInt(Question::getId))
-                .toList();
-    }
-
-    @Override
     public CustomQuestion save(User currentUser, String question) {
         if (alreadyExists(question))
             throw new QuestionAlreadyExistsException("Cannot save question! becuase question already exists!");
@@ -70,5 +62,12 @@ public class CustomQuestionServiceImpl implements CustomQuestionService {
         customQuestionRepository.saveAll(questionList);
         log.debug("Questions with ids of {} saved successfully", questionList.stream().map(Question::getId).toList());
         return questionList;
+    }
+
+    @Override
+    public List<CustomQuestion> getAllByOwner(User currentUser) {
+        return currentUser.getCustomQuestions().stream()
+                .sorted(Comparator.comparingInt(Question::getId))
+                .toList();
     }
 }

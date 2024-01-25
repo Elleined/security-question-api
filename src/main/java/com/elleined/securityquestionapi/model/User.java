@@ -1,6 +1,7 @@
 package com.elleined.securityquestionapi.model;
 
 
+import com.elleined.securityquestionapi.model.question.CustomQuestion;
 import com.elleined.securityquestionapi.service.sq.SecurityQuestionService;
 import jakarta.persistence.*;
 import lombok.*;
@@ -34,6 +35,10 @@ public class User {
     @OneToMany(mappedBy = "user")
     @Setter(AccessLevel.NONE)
     private List<SecurityQuestion> securityQuestions;
+
+    @OneToMany(mappedBy = "owner")
+    @Setter(AccessLevel.NONE)
+    private List<CustomQuestion> customQuestions;
 
     public boolean has(SecurityQuestion securityQuestion) {
         return this.getSecurityQuestions().stream().anyMatch(securityQuestion::equals);

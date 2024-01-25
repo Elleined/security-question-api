@@ -2,7 +2,6 @@ package com.elleined.securityquestionapi.service.question.pdq;
 
 import com.elleined.securityquestionapi.exception.question.QuestionAlreadyExistsException;
 import com.elleined.securityquestionapi.exception.resource.ResourceNotFoundException;
-import com.elleined.securityquestionapi.mapper.QuestionMapper;
 import com.elleined.securityquestionapi.model.question.PreDefinedQuestion;
 import com.elleined.securityquestionapi.model.question.Question;
 import com.elleined.securityquestionapi.repository.question.PreDefinedQuestionRepository;

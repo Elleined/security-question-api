@@ -1,9 +1,9 @@
 package com.elleined.securityquestionapi.service.sq;
 
 import com.elleined.securityquestionapi.exception.resource.ResourceNotFoundException;
-import com.elleined.securityquestionapi.model.question.Question;
 import com.elleined.securityquestionapi.model.SecurityQuestion;
 import com.elleined.securityquestionapi.model.User;
+import com.elleined.securityquestionapi.model.question.Question;
 
 import java.util.List;
 

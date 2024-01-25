@@ -1,10 +1,11 @@
 package com.elleined.securityquestionapi.controller.question;
 
 import com.elleined.securityquestionapi.dto.question.QuestionDTO;
-import com.elleined.securityquestionapi.mapper.QuestionMapper;
 import com.elleined.securityquestionapi.service.question.pdq.PreDefinedQuestionService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
