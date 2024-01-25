@@ -23,7 +23,7 @@ public class UserController {
     @GetMapping("/{id}")
     public UserDTO getById(@PathVariable("id") int id) {
         User retrievedUser = userService.getById(id);
-        return userMapper.toDTO(retrievedUser).addLinks();
+        return userMapper.toDTO(retrievedUser);
     }
 
 }

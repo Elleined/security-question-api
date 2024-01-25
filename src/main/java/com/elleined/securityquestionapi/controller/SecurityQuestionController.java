@@ -35,7 +35,7 @@ public class SecurityQuestionController {
 
     @GetMapping("/{securityQuestionId}/check-answer")
     public ResponseEntity<Boolean> isAnswerCorrect(@PathVariable("currentUserId") int currentUserId,
-                                          @PathVariable("securityQuestionId") int securityQuestionId,
+                                          @PathVariable("securityQuestionId") Integer securityQuestionId,
                                           @RequestParam("providedAnswer") String providedAnswer) {
 
         User currentUser = userService.getById(currentUserId);
@@ -44,8 +44,8 @@ public class SecurityQuestionController {
     }
 
     @PostMapping
-    public SecurityQuestionDTO save(@PathVariable("currentUserId") int currentUserId,
-                                    @RequestParam("questionId") int questionId,
+    public SecurityQuestionDTO save(@PathVariable("currentUserId") Integer currentUserId,
+                                    @RequestParam("questionId") Integer questionId,
                                     @RequestParam("answer") String answer) {
 
         User currentUser = userService.getById(currentUserId);

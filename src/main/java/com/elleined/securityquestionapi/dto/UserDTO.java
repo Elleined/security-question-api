@@ -9,7 +9,7 @@ import lombok.Getter;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
 @Getter
-public class UserDTO extends HATEOUSLinker<UserDTO> {
+public class UserDTO extends HateousLinker<UserDTO> {
     private final int id;
     private final String name;
 
@@ -17,15 +17,11 @@ public class UserDTO extends HATEOUSLinker<UserDTO> {
     public UserDTO(int id, String name) {
         this.id = id;
         this.name = name;
+        addLinks();
     }
 
     @Override
-    public UserDTO addLinks() {
-        return addSelfLinks().addRelatedLinks();
-    }
-
-    @Override
-    UserDTO addSelfLinks() {
+    public void addSelfLinks() {
         // Only add link if guard is true
         // this.addIf(false, () -> linkTo(methodOn(UserController.class).save(null)).withSelfRel());
 
@@ -36,22 +32,21 @@ public class UserDTO extends HATEOUSLinker<UserDTO> {
                         .withTitle("Get by id")
                         .andAffordance(afford(methodOn(UserController.class).save(null)))
         );
-        return this;
     }
 
     @Override
-    UserDTO addRelatedLinks() {
+    public void addRelatedLinks() {
         // Security Question
         this.add(
                 linkTo(methodOn(SecurityQuestionController.class).getAllByUser(id))
                         .withRel("security-questions")
                         .withTitle("Get all current user security questions")
                         .withType("GET"),
-                linkTo(methodOn(SecurityQuestionController.class).save(id, 0, null))
+                linkTo(methodOn(SecurityQuestionController.class).save(id, null, null))
                         .withRel("security-questions")
                         .withType("POST")
                         .withTitle("Save security question"),
-                linkTo(methodOn(SecurityQuestionController.class).isAnswerCorrect(id, 0, null))
+                linkTo(methodOn(SecurityQuestionController.class).isAnswerCorrect(id, null, null))
                         .withRel("security-questions")
                         .withTitle("Check if security question answer is correct")
                         .withType("GET")
@@ -68,6 +63,5 @@ public class UserDTO extends HATEOUSLinker<UserDTO> {
                         .withTitle("Get all question")
                         .withType("GET")
         );
-        return this;
     }
 }

@@ -9,7 +9,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Getter
-public class QuestionDTO extends HATEOUSLinker<QuestionDTO> {
+public class QuestionDTO extends HateousLinker<QuestionDTO> {
     private final int id;
     private final String question;
 
@@ -17,15 +17,11 @@ public class QuestionDTO extends HATEOUSLinker<QuestionDTO> {
     public QuestionDTO(int id, String question) {
         this.id = id;
         this.question = question;
+        addLinks();
     }
 
     @Override
-    public QuestionDTO addLinks() {
-        return addSelfLinks().addRelatedLinks();
-    }
-
-    @Override
-    QuestionDTO addSelfLinks() {
+    public void addSelfLinks() {
         add(linkTo(methodOn(QuestionController.class).getAll())
                 .withSelfRel()
                 .withTitle("Get all questions")
@@ -36,16 +32,13 @@ public class QuestionDTO extends HATEOUSLinker<QuestionDTO> {
                 .withTitle("Save question")
                 .withType("POST")
         );
-        return this;
     }
 
-    @Override
-    QuestionDTO addRelatedLinks() {
-        add(linkTo(SecurityQuestionController.class)
+    public void addRelatedLinks() {
+        add(linkTo(methodOn(SecurityQuestionController.class).save(null, id, null))
                 .withRel("security-questions")
                 .withTitle("Save user security question with specified question")
                 .withType("POST")
         );
-        return this;
     }
 }
