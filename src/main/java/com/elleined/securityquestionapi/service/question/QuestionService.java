@@ -1,6 +1,6 @@
 package com.elleined.securityquestionapi.service.question;
 
-import com.elleined.securityquestionapi.model.Question;
+import com.elleined.securityquestionapi.model.question.Question;
 
 import java.util.List;
 

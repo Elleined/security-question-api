@@ -29,7 +29,7 @@ public class QuestionDTO extends HateousLinker<QuestionDTO> {
         );
         add(linkTo(methodOn(QuestionController.class).save(null))
                 .withSelfRel()
-                .withTitle("Save question")
+                .withTitle("Create custom question")
                 .withType("POST")
         );
     }

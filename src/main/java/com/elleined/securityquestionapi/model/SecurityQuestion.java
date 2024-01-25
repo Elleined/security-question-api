@@ -1,5 +1,6 @@
 package com.elleined.securityquestionapi.model;
 
+import com.elleined.securityquestionapi.model.question.Question;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -24,21 +25,18 @@ public class SecurityQuestion {
     )
     private int id;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(
-            name = "security_question_id",
-            referencedColumnName = "id",
-            nullable = false,
-            updatable = false
-    )
-    private Question question;
-
     @Column(
             name = "created_at",
             nullable = false,
             updatable = false
     )
     private LocalDateTime createdAt;
+
+    @Column(
+            name = "answer",
+            nullable = false
+    )
+    private String answer;
 
     @ManyToOne(optional = false)
     @JoinColumn(
@@ -49,9 +47,12 @@ public class SecurityQuestion {
     )
     private User user;
 
-    @Column(
-            name = "answer",
-            nullable = false
+    @ManyToOne(optional = false)
+    @JoinColumn(
+            name = "question_id",
+            referencedColumnName = "id",
+            nullable = false,
+            updatable = false
     )
-    private String answer;
+    private Question question;
 }

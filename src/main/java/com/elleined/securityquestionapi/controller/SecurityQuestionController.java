@@ -2,7 +2,7 @@ package com.elleined.securityquestionapi.controller;
 
 import com.elleined.securityquestionapi.dto.SecurityQuestionDTO;
 import com.elleined.securityquestionapi.mapper.SecurityQuestionMapper;
-import com.elleined.securityquestionapi.model.Question;
+import com.elleined.securityquestionapi.model.question.Question;
 import com.elleined.securityquestionapi.model.SecurityQuestion;
 import com.elleined.securityquestionapi.model.User;
 import com.elleined.securityquestionapi.service.question.QuestionService;
@@ -35,8 +35,8 @@ public class SecurityQuestionController {
 
     @GetMapping("/{securityQuestionId}/check-answer")
     public ResponseEntity<Boolean> isAnswerCorrect(@PathVariable("currentUserId") int currentUserId,
-                                          @PathVariable("securityQuestionId") Integer securityQuestionId,
-                                          @RequestParam("providedAnswer") String providedAnswer) {
+                                                   @PathVariable("securityQuestionId") Integer securityQuestionId,
+                                                   @RequestParam("providedAnswer") String providedAnswer) {
 
         User currentUser = userService.getById(currentUserId);
         SecurityQuestion securityQuestion = securityQuestionService.getById(securityQuestionId);

@@ -1,5 +1,6 @@
-package com.elleined.securityquestionapi.model;
+package com.elleined.securityquestionapi.model.question;
 
+import com.elleined.securityquestionapi.model.SecurityQuestion;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -7,15 +8,23 @@ import java.util.List;
 
 @Entity
 @Table(name = "tbl_question")
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Getter
 @Setter
-public class Question {
+@AllArgsConstructor
+@NoArgsConstructor
+public abstract class Question {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(
+            strategy = GenerationType.TABLE,
+            generator = "questionAutoIncrement"
+    )
+    @SequenceGenerator(
+            allocationSize = 1,
+            name = "questionAutoIncrement",
+            sequenceName = "questionAutoIncrement"
+    )
     @Column(
             name = "id",
             nullable = false,

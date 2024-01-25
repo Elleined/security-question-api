@@ -56,7 +56,7 @@ public class UserDTO extends HateousLinker<UserDTO> {
         this.add(
                 linkTo(methodOn(QuestionController.class).save(null))
                         .withRel("questions")
-                        .withTitle("Create question")
+                        .withTitle("Create custom question")
                         .withType("POST"),
                 linkTo(methodOn(QuestionController.class).getAll())
                         .withRel("questions")

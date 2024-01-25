@@ -1,7 +1,7 @@
 package com.elleined.securityquestionapi.mapper;
 
 import com.elleined.securityquestionapi.dto.SecurityQuestionDTO;
-import com.elleined.securityquestionapi.model.Question;
+import com.elleined.securityquestionapi.model.question.Question;
 import com.elleined.securityquestionapi.model.SecurityQuestion;
 import com.elleined.securityquestionapi.model.User;
 import org.mapstruct.Context;

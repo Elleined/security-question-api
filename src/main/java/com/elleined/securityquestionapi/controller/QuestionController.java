@@ -2,7 +2,7 @@ package com.elleined.securityquestionapi.controller;
 
 import com.elleined.securityquestionapi.dto.QuestionDTO;
 import com.elleined.securityquestionapi.mapper.QuestionMapper;
-import com.elleined.securityquestionapi.model.Question;
+import com.elleined.securityquestionapi.model.question.Question;
 import com.elleined.securityquestionapi.service.question.QuestionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
