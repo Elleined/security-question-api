@@ -6,14 +6,13 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
-@NoArgsConstructor
 @Getter
 public class CustomQuestionDTO extends QuestionDTO {
 
-    private LocalDateTime createdAt;
-    private String answer;
+    private final LocalDateTime createdAt;
+    private final String answer;
 
-    private UserDTO owner;
+    private final UserDTO owner;
 
     public CustomQuestionDTO(int id, String question, LocalDateTime createdAt, String answer, UserDTO owner) {
         super(id, question);

@@ -2,8 +2,10 @@ package com.elleined.securityquestionapi.mapper;
 
 import com.elleined.securityquestionapi.controller.SecurityQuestionController;
 import com.elleined.securityquestionapi.dto.SecurityQuestionDTO;
+import com.elleined.securityquestionapi.mapper.question.PreDefinedQuestionMapper;
 import com.elleined.securityquestionapi.model.SecurityQuestion;
 import com.elleined.securityquestionapi.model.User;
+import com.elleined.securityquestionapi.model.question.PreDefinedQuestion;
 import com.elleined.securityquestionapi.model.question.Question;
 import org.mapstruct.*;
 
@@ -12,24 +14,27 @@ import java.util.List;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
-@Mapper(componentModel = "spring")
+@Mapper(
+        componentModel = "spring",
+        uses = {
+                UserMapper.class,
+                PreDefinedQuestionMapper.class
+        }
+)
 public interface SecurityQuestionMapper {
 
     @Mappings({
             @Mapping(target = "id", ignore = true),
-
-            @Mapping(target = "answer", expression = "java(answer)"),
-            @Mapping(target = "question", expression = "java(question)"),
-            @Mapping(target = "user", expression = "java(currentUser)"),
-
             @Mapping(target = "createdAt", expression = "java(java.time.LocalDateTime.now())"),
+            @Mapping(target = "answer", expression = "java(answer)"),
+            @Mapping(target = "owner", expression = "java(currentUser)"),
+            @Mapping(target = "preDefinedQuestion", expression = "java(preDefinedQuestion)")
     })
     SecurityQuestion toEntity(User currentUser,
-                              @Context Question question,
+                              @Context PreDefinedQuestion preDefinedQuestion,
                               @Context String answer);
 
     @Mappings({
-
             @Mapping(target = "owner", source = "owner"),
             @Mapping(target = "preDefinedQuestionDTO", source = "preDefinedQuestion")
     })

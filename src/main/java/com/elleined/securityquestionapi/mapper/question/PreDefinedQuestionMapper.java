@@ -1,12 +1,16 @@
 package com.elleined.securityquestionapi.mapper.question;
 
 import com.elleined.securityquestionapi.dto.question.PreDefinedQuestionDTO;
+import com.elleined.securityquestionapi.mapper.SecurityQuestionMapper;
 import com.elleined.securityquestionapi.model.question.PreDefinedQuestion;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 
-@Mapper(componentModel = "spring")
+@Mapper(
+        componentModel = "spring",
+        uses = {SecurityQuestionMapper.class}
+)
 public interface PreDefinedQuestionMapper {
 
     @Mappings({
@@ -16,5 +20,8 @@ public interface PreDefinedQuestionMapper {
     })
     PreDefinedQuestion toEntity(String question);
 
-    PreDefinedQuestionDTO toDTO(PreDefinedQuestion definedQuestion);
+    @Mappings({
+            @Mapping(target = "securityQuestionDTOS", source = "securityQuestions")
+    })
+    PreDefinedQuestionDTO toDTO(PreDefinedQuestion preDefinedQuestion);
 }
