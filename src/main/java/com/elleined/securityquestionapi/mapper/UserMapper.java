@@ -1,11 +1,32 @@
 package com.elleined.securityquestionapi.mapper;
 
+import com.elleined.securityquestionapi.controller.UserController;
 import com.elleined.securityquestionapi.dto.UserDTO;
+import com.elleined.securityquestionapi.mapper.question.CustomQuestionMapper;
+import com.elleined.securityquestionapi.mapper.question.PreDefinedQuestionMapper;
 import com.elleined.securityquestionapi.model.User;
 import org.mapstruct.*;
 
-@Mapper(componentModel = "spring")
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
+
+@Mapper(
+        componentModel = "spring",
+        builder = @Builder(disableBuilder = true),
+        uses = {
+                SecurityQuestionMapper.class,
+                CustomQuestionMapper.class,
+                PreDefinedQuestionMapper.class
+        }
+)
 public interface UserMapper {
+
+    @Mappings({
+            @Mapping(target = "id", source = "id"),
+            @Mapping(target = "name", source = "name"),
+
+            @Mapping(target = "customQuestionDTOS", source = "customQuestions"),
+            @Mapping(target = "securityQuestionDTOS", source = "securityQuestions")
+    })
     UserDTO toDTO(User user);
 
     @Mappings({
@@ -18,14 +39,14 @@ public interface UserMapper {
     })
     User toEntity(String name);
 
-    @BeforeMapping
-    default void toDTOBeforeMapping(User user, @MappingTarget UserDTO.UserDTOBuilder userDTOBuilder) {
-        System.out.println("HI");
-        // Automatically execute code before toDTO method
-    }
-
     @AfterMapping
-    default void toDTOAfterMapping(User user, @MappingTarget UserDTO.UserDTOBuilder userDTOBuilder) {
-        // Automatically execute code after toDTO method
+    default void toDTOAfterMapping(User user, @MappingTarget UserDTO userDTO) {
+        userDTO.add(
+                linkTo(methodOn(UserController.class).getById(userDTO.getId()))
+                        .withSelfRel()
+                        .withType("GET")
+                        .withTitle("Get by id")
+                        .andAffordance(afford(methodOn(UserController.class).save(null)))
+        );
     }
 }
