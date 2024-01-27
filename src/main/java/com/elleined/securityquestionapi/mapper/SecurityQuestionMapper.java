@@ -9,6 +9,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface SecurityQuestionMapper {
 
@@ -31,4 +33,10 @@ public interface SecurityQuestionMapper {
             @Mapping(target = "questionId", source = "question.id")
     })
     SecurityQuestionDTO toDTO(SecurityQuestion securityQuestion);
+
+    default List<SecurityQuestionDTO> toUserSecurityQuestion(List<SecurityQuestion> securityQuestions) {
+        return securityQuestions.stream()
+                .map(this::toDTO)
+                .toList();
+    }
 }

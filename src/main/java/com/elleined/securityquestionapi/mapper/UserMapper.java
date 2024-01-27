@@ -14,8 +14,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
         builder = @Builder(disableBuilder = true),
         uses = {
                 SecurityQuestionMapper.class,
-                CustomQuestionMapper.class,
-                PreDefinedQuestionMapper.class
+                CustomQuestionMapper.class
         }
 )
 public interface UserMapper {
@@ -42,7 +41,7 @@ public interface UserMapper {
     @AfterMapping
     default void toDTOAfterMapping(User user, @MappingTarget UserDTO userDTO) {
         userDTO.add(
-                linkTo(methodOn(UserController.class).getById(userDTO.getId()))
+                linkTo(methodOn(UserController.class).getById(user.getId()))
                         .withSelfRel()
                         .withType("GET")
                         .withTitle("Get by id")

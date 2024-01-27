@@ -9,6 +9,9 @@ import org.mapstruct.Context;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
+
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface CustomQuestionMapper {
 
@@ -30,4 +33,10 @@ public interface CustomQuestionMapper {
             @Mapping(target = "ownerId", source = "owner.id")
     })
     CustomQuestionDTO toDTO(CustomQuestion customQuestion);
+
+    default List<CustomQuestionDTO> toUserCustomQuestions(List<CustomQuestion> customQuestions) {
+        return customQuestions.stream()
+                .map(this::toDTO)
+                .toList();
+    }
 }
