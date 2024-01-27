@@ -1,10 +1,10 @@
 package com.elleined.securityquestionapi.model.question;
 
-import com.elleined.securityquestionapi.model.SecurityQuestion;
 import jakarta.persistence.*;
-import lombok.*;
-
-import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "tbl_question")
@@ -40,8 +40,4 @@ public abstract class Question {
             unique = true
     )
     private String question;
-
-    @OneToMany(mappedBy = "question")
-    @Setter(AccessLevel.NONE)
-    private List<SecurityQuestion> securityQuestions;
 }

@@ -1,7 +1,6 @@
 package com.elleined.securityquestionapi.model.question;
 
 
-import com.elleined.securityquestionapi.model.SecurityQuestion;
 import com.elleined.securityquestionapi.model.User;
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -10,7 +9,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
 @Table(name = "tbl_user_custom_question")
@@ -43,8 +41,8 @@ public class CustomQuestion extends Question {
     private String answer;
 
     @Builder(builderMethodName = "customQuestionBuilder")
-    public CustomQuestion(int id, String question, List<SecurityQuestion> securityQuestions, User owner, LocalDateTime createdAt, String answer) {
-        super(id, question, securityQuestions);
+    public CustomQuestion(int id, String question, User owner, LocalDateTime createdAt, String answer) {
+        super(id, question);
         this.owner = owner;
         this.createdAt = createdAt;
         this.answer = answer;

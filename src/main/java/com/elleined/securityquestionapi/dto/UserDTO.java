@@ -1,7 +1,6 @@
 package com.elleined.securityquestionapi.dto;
 
 import com.elleined.securityquestionapi.dto.question.CustomQuestionDTO;
-import com.elleined.securityquestionapi.dto.question.PreDefinedQuestionDTO;
 import lombok.Getter;
 import org.springframework.hateoas.RepresentationModel;
 

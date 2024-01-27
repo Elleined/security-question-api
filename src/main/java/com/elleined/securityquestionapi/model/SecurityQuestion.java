@@ -1,6 +1,6 @@
 package com.elleined.securityquestionapi.model;
 
-import com.elleined.securityquestionapi.model.question.Question;
+import com.elleined.securityquestionapi.model.question.PreDefinedQuestion;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -46,7 +46,7 @@ public class SecurityQuestion {
             nullable = false,
             updatable = false
     )
-    private User user;
+    private User owner;
 
     @ManyToOne(optional = false)
     @JoinColumn(
@@ -55,5 +55,5 @@ public class SecurityQuestion {
             nullable = false,
             updatable = false
     )
-    private Question question;
+    private PreDefinedQuestion preDefinedQuestion;
 }

@@ -3,7 +3,6 @@ package com.elleined.securityquestionapi.mapper;
 import com.elleined.securityquestionapi.controller.UserController;
 import com.elleined.securityquestionapi.dto.UserDTO;
 import com.elleined.securityquestionapi.mapper.question.CustomQuestionMapper;
-import com.elleined.securityquestionapi.mapper.question.PreDefinedQuestionMapper;
 import com.elleined.securityquestionapi.model.User;
 import org.mapstruct.*;
 
