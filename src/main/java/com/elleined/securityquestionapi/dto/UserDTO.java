@@ -2,12 +2,11 @@ package com.elleined.securityquestionapi.dto;
 
 import com.elleined.securityquestionapi.dto.question.CustomQuestionDTO;
 import lombok.Getter;
-import org.springframework.hateoas.RepresentationModel;
 
 import java.util.List;
 
 @Getter
-public class UserDTO extends RepresentationModel<UserDTO> {
+public class UserDTO {
     private final int id;
     private final String name;
 

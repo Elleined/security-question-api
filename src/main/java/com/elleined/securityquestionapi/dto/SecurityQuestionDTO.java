@@ -2,12 +2,11 @@ package com.elleined.securityquestionapi.dto;
 
 import com.elleined.securityquestionapi.dto.question.PreDefinedQuestionDTO;
 import lombok.Getter;
-import org.springframework.hateoas.RepresentationModel;
 
 import java.time.LocalDateTime;
 
 @Getter
-public class SecurityQuestionDTO extends RepresentationModel<SecurityQuestionDTO> {
+public class SecurityQuestionDTO {
     private final int id;
     private final LocalDateTime createdAt;
     private final String answer;
