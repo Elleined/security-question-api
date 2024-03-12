@@ -1,0 +1,36 @@
+version: "3"
+services:
+  sqa_app:
+    build: .
+    container_name: sqa_app
+    restart: always
+    ports:
+      - "8087:8087"
+    environment:
+      - MYSQL_HOST=sqa_mysql_server
+      - MYSQL_PORT=3306
+      - MYSQL_DB=sqa_db
+      - MYSQL_USER=root
+      - MYSQL_PASS=root
+    networks:
+      - sqa_network
+    depends_on:
+      - sqa_mysql_server
+  sqa_mysql_server:
+    image: mysql:8.0.32
+    container_name: sqa_mysql_server
+    restart: always
+    ports:
+      - "3307:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=sqa_db
+    networks:
+      - sqa_network
+networks:
+  sqa_network:
+    name: sqa_network
+    external: false
+    ipam:
+      driver: default
+
