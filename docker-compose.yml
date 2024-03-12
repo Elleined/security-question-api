@@ -2,6 +2,7 @@ version: "3"
 services:
   sqa_app:
     build: .
+    image: elleined/sqa
     container_name: sqa_app
     restart: always
     ports:
