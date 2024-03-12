@@ -1,21 +1,12 @@
 package com.elleined.securityquestionapi.mapper;
 
-import com.elleined.securityquestionapi.controller.UserController;
 import com.elleined.securityquestionapi.dto.UserDTO;
-import com.elleined.securityquestionapi.mapper.question.CustomQuestionMapper;
 import com.elleined.securityquestionapi.model.User;
-import org.mapstruct.*;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.Mappings;
 
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
-
-@Mapper(
-        componentModel = "spring",
-        builder = @Builder(disableBuilder = true),
-        uses = {
-                SecurityQuestionMapper.class,
-                CustomQuestionMapper.class
-        }
-)
+@Mapper(componentModel = "spring")
 public interface UserMapper {
 
     @Mappings({
@@ -36,15 +27,4 @@ public interface UserMapper {
             @Mapping(target = "customQuestions", expression = "java(new java.util.ArrayList<>())")
     })
     User toEntity(String name);
-
-    @AfterMapping
-    default void toDTOAfterMapping(User user, @MappingTarget UserDTO userDTO) {
-        userDTO.add(
-                linkTo(methodOn(UserController.class).getById(user.getId()))
-                        .withSelfRel()
-                        .withType("GET")
-                        .withTitle("Get by id")
-                        .andAffordance(afford(methodOn(UserController.class).save(null)))
-        );
-    }
 }

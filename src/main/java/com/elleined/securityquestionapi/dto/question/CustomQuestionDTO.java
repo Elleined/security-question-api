@@ -2,7 +2,6 @@ package com.elleined.securityquestionapi.dto.question;
 
 import com.elleined.securityquestionapi.dto.UserDTO;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 

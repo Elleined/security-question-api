@@ -32,7 +32,7 @@ public class User {
     )
     private String name;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "owner")
     @Setter(AccessLevel.NONE)
     private List<SecurityQuestion> securityQuestions;
 

@@ -1,7 +1,6 @@
 package com.elleined.securityquestionapi.mapper.question;
 
 import com.elleined.securityquestionapi.dto.question.CustomQuestionDTO;
-import com.elleined.securityquestionapi.mapper.UserMapper;
 import com.elleined.securityquestionapi.model.User;
 import com.elleined.securityquestionapi.model.question.CustomQuestion;
 import org.mapstruct.Context;
@@ -9,11 +8,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 
-import java.util.List;
-
 @Mapper(
-        componentModel = "spring",
-        uses = UserMapper.class
+        componentModel = "spring"
 )
 public interface CustomQuestionMapper {
 
@@ -32,10 +28,4 @@ public interface CustomQuestionMapper {
             @Mapping(target = "owner", source = "owner")
     })
     CustomQuestionDTO toDTO(CustomQuestion customQuestion);
-
-    default List<CustomQuestionDTO> toUserCustomQuestions(List<CustomQuestion> customQuestions) {
-        return customQuestions.stream()
-                .map(this::toDTO)
-                .toList();
-    }
 }
