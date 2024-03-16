@@ -1,4 +1,4 @@
-version: "3"
+version: "3.8"
 services:
   sqa_app:
     build: .
@@ -16,7 +16,8 @@ services:
     networks:
       - sqa_network
     depends_on:
-      - sqa_mysql_server
+      sqa_mysql_server:
+        condition: service_healthy
   sqa_mysql_server:
     image: mysql:8.0.32
     container_name: sqa_mysql_server
@@ -26,6 +27,8 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=sqa_db
+    healthcheck:
+      test: mysqladmin ping -h localhost -u root --password=$$MYSQL_ROOT_PASSWORD
     networks:
       - sqa_network
 networks:
