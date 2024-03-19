@@ -62,8 +62,8 @@ public class CustomQuestionServiceImpl implements CustomQuestionService {
         if (!currentUser.has(customQuestion))
             throw new ResourceNotOwnedException("Cannot check if answer correct! because current user doesn't own the security question provided!");
 
-        String encodedPassword = customQuestion.getAnswer();
-        return passwordEncoder.matches(providedAnswer, encodedPassword);
+        String encodedAnswer = customQuestion.getAnswer();
+        return passwordEncoder.matches(providedAnswer, encodedAnswer);
     }
 
     @Override
