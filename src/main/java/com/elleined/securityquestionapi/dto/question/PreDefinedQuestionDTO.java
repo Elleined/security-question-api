@@ -1,6 +1,7 @@
 package com.elleined.securityquestionapi.dto.question;
 
 import com.elleined.securityquestionapi.dto.SecurityQuestionDTO;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -10,10 +11,11 @@ import java.util.List;
 @Getter
 public class PreDefinedQuestionDTO extends QuestionDTO {
 
-    private List<SecurityQuestionDTO> securityQuestionDTOS;
+    private List<Integer> securityQuestionIds;
 
-    public PreDefinedQuestionDTO(int id, String question, List<SecurityQuestionDTO> securityQuestionDTOS) {
+    @Builder
+    public PreDefinedQuestionDTO(int id, String question, List<Integer> securityQuestionIds) {
         super(id, question);
-        this.securityQuestionDTOS = securityQuestionDTOS;
+        this.securityQuestionIds = securityQuestionIds;
     }
 }

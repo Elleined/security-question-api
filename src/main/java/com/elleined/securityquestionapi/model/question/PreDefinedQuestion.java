@@ -24,4 +24,8 @@ public class PreDefinedQuestion extends Question {
         super(id, question);
         this.securityQuestions = securityQuestions;
     }
+
+    public List<Integer> securityQuestionIds() {
+        return this.securityQuestions.stream().map(SecurityQuestion::getId).toList();
+    }
 }

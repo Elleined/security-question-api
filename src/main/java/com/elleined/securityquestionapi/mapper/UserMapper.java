@@ -12,9 +12,8 @@ public interface UserMapper {
     @Mappings({
             @Mapping(target = "id", source = "id"),
             @Mapping(target = "name", source = "name"),
-
-            @Mapping(target = "customQuestionDTOS", source = "customQuestions"),
-            @Mapping(target = "securityQuestionDTOS", source = "securityQuestions")
+            @Mapping(target = "customQuestionIds", expression = "java(user.securityQuestionIds())"),
+            @Mapping(target = "securityQuestionIds", expression = "java(user.customQuestionIds())")
     })
     UserDTO toDTO(User user);
 

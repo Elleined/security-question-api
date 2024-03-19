@@ -23,7 +23,7 @@ public interface CustomQuestionMapper {
                             @Context String answer);
 
     @Mappings({
-            @Mapping(target = "owner", source = "owner")
+            @Mapping(target = "ownerId", source = "owner.id")
     })
     CustomQuestionDTO toDTO(CustomQuestion customQuestion);
 }

@@ -24,8 +24,8 @@ public interface SecurityQuestionMapper {
                               @Context String answer);
 
     @Mappings({
-            @Mapping(target = "owner", source = "owner"),
-            @Mapping(target = "preDefinedQuestionDTO", source = "preDefinedQuestion")
+            @Mapping(target = "ownerId", source = "owner.id"),
+            @Mapping(target = "preDefinedQuestionId", source = "preDefinedQuestion.id")
     })
     SecurityQuestionDTO toDTO(SecurityQuestion securityQuestion);
 }

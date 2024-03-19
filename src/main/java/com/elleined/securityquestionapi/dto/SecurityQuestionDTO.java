@@ -1,6 +1,7 @@
 package com.elleined.securityquestionapi.dto;
 
 import com.elleined.securityquestionapi.dto.question.PreDefinedQuestionDTO;
+import lombok.Builder;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
@@ -11,14 +12,15 @@ public class SecurityQuestionDTO {
     private final LocalDateTime createdAt;
     private final String answer;
 
-    private final UserDTO owner;
-    private final PreDefinedQuestionDTO preDefinedQuestionDTO;
+    private final int ownerId;
+    private final int preDefinedQuestionId;
 
-    public SecurityQuestionDTO(int id, LocalDateTime createdAt, String answer, UserDTO owner, PreDefinedQuestionDTO preDefinedQuestionDTO) {
+    @Builder
+    public SecurityQuestionDTO(int id, LocalDateTime createdAt, String answer, int ownerId, int preDefinedQuestionId) {
         this.id = id;
         this.createdAt = createdAt;
         this.answer = answer;
-        this.owner = owner;
-        this.preDefinedQuestionDTO = preDefinedQuestionDTO;
+        this.ownerId = ownerId;
+        this.preDefinedQuestionId = preDefinedQuestionId;
     }
 }

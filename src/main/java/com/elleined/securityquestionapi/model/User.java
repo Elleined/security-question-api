@@ -40,6 +40,13 @@ public class User {
     @Setter(AccessLevel.NONE)
     private List<CustomQuestion> customQuestions;
 
+    public List<Integer> securityQuestionIds() {
+        return this.securityQuestions.stream().map(SecurityQuestion::getId).toList();
+    }
+    public List<Integer> customQuestionIds() {
+        return this.customQuestions.stream().map(CustomQuestion::getId).toList();
+    }
+
     public boolean has(SecurityQuestion securityQuestion) {
         return this.getSecurityQuestions().stream().anyMatch(securityQuestion::equals);
     }

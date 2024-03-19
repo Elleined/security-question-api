@@ -1,8 +1,5 @@
 package com.elleined.securityquestionapi.mapper.question;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
-
 import com.elleined.securityquestionapi.dto.question.CustomQuestionDTO;
 import com.elleined.securityquestionapi.model.User;
 import com.elleined.securityquestionapi.model.question.CustomQuestion;
@@ -12,6 +9,9 @@ import org.mapstruct.factory.Mappers;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @ExtendWith(MockitoExtension.class)
 class CustomQuestionMapperTest {
@@ -56,7 +56,12 @@ class CustomQuestionMapperTest {
         // Expected Value
 
         // Mock data
-        User owner = new User();
+
+        int ownerId = 2;
+        User owner = User.builder()
+                .id(ownerId)
+                .build();
+
         int id = 1;
         String question = "Question";
         String answer = "Answer";
@@ -80,17 +85,16 @@ class CustomQuestionMapperTest {
         // Behavior Verifications
 
         // Assertions
-        assertEquals(id, customQuestion.getId());
+        assertEquals(id, dto.getId());
 
-        assertEquals(question, customQuestion.getQuestion());
-        assertNotNull(customQuestion.getQuestion());
+        assertEquals(question, dto.getQuestion());
+        assertNotNull(dto.getQuestion());
 
-        assertEquals(owner, customQuestion.getOwner());
-        assertNotNull(customQuestion.getOwner());
+        assertEquals(ownerId, dto.getOwnerId());
 
-        assertNotNull(customQuestion.getCreatedAt());
+        assertNotNull(dto.getCreatedAt());
 
-        assertEquals(answer, customQuestion.getAnswer());
-        assertNotNull(customQuestion.getAnswer());
+        assertEquals(answer, dto.getAnswer());
+        assertNotNull(dto.getAnswer());
     }
 }

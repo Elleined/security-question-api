@@ -17,7 +17,7 @@ public interface PreDefinedQuestionMapper {
     PreDefinedQuestion toEntity(String question);
 
     @Mappings({
-            @Mapping(target = "securityQuestionDTOS", source = "securityQuestions")
+            @Mapping(target = "securityQuestionIds", expression = "java(preDefinedQuestion.securityQuestionIds())")
     })
     PreDefinedQuestionDTO toDTO(PreDefinedQuestion preDefinedQuestion);
 }
