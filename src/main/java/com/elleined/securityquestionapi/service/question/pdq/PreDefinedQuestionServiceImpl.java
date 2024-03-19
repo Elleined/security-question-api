@@ -62,12 +62,12 @@ public class PreDefinedQuestionServiceImpl implements PreDefinedQuestionService 
         if (questions.stream().anyMatch(this::alreadyExists))
             throw new QuestionAlreadyExistsException("Cannot save all question! because one of the question already exists in database!");
 
-        List<PreDefinedQuestion> questionList = questions.stream()
+        List<PreDefinedQuestion> predefinedQuestions = questions.stream()
                 .map(predefinedQuestionMapper::toEntity)
                 .toList();
 
-        preDefinedQuestionRepository.saveAll(questionList);
-        log.debug("Questions with ids of {} saved successfully", questionList.stream().map(Question::getId).toList());
-        return questionList;
+        preDefinedQuestionRepository.saveAll(predefinedQuestions);
+        log.debug("Questions with ids of {} saved successfully", predefinedQuestions.stream().map(Question::getId).toList());
+        return predefinedQuestions;
     }
 }
