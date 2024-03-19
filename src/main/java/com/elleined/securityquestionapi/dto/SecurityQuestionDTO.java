@@ -1,6 +1,5 @@
 package com.elleined.securityquestionapi.dto;
 
-import com.elleined.securityquestionapi.dto.question.PreDefinedQuestionDTO;
 import lombok.Builder;
 import lombok.Getter;
 

@@ -1,24 +1,21 @@
 package com.elleined.securityquestionapi.service.question.cq;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
-
 import com.elleined.securityquestionapi.mapper.question.CustomQuestionMapper;
 import com.elleined.securityquestionapi.model.User;
 import com.elleined.securityquestionapi.model.question.CustomQuestion;
 import com.elleined.securityquestionapi.repository.question.CustomQuestionRepository;
-import jdk.dynalink.linker.LinkerServices;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.w3c.dom.stylesheets.LinkStyle;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class CustomQuestionServiceImplTest {

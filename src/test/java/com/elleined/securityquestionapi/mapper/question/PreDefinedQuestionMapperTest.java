@@ -1,8 +1,5 @@
 package com.elleined.securityquestionapi.mapper.question;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
-
 import com.elleined.securityquestionapi.dto.question.PreDefinedQuestionDTO;
 import com.elleined.securityquestionapi.model.SecurityQuestion;
 import com.elleined.securityquestionapi.model.question.PreDefinedQuestion;
@@ -14,10 +11,12 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 @ExtendWith(MockitoExtension.class)
 class PreDefinedQuestionMapperTest {
 
-    PreDefinedQuestionMapper preDefinedQuestionMapper = Mappers.getMapper(PreDefinedQuestionMapper.class);
+    private final PreDefinedQuestionMapper preDefinedQuestionMapper = Mappers.getMapper(PreDefinedQuestionMapper.class);
 
     @Test
     void toEntity() {

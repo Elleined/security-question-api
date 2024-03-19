@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @ExtendWith(MockitoExtension.class)
 class CustomQuestionMapperTest {
 
-    CustomQuestionMapper customQuestionMapper = Mappers.getMapper(CustomQuestionMapper.class);
+    private final CustomQuestionMapper customQuestionMapper = Mappers.getMapper(CustomQuestionMapper.class);
 
     @Test
     void toEntity() {

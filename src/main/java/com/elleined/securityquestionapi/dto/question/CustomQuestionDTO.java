@@ -1,6 +1,5 @@
 package com.elleined.securityquestionapi.dto.question;
 
-import com.elleined.securityquestionapi.dto.UserDTO;
 import lombok.Builder;
 import lombok.Getter;
 
