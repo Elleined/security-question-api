@@ -49,6 +49,6 @@ public class User {
     }
 
     public boolean hasReachedLimitOfSecurityQuestions() {
-        return this.getSecurityQuestions().size() > SecurityQuestionService.SECURITY_QUESTION_LIMIT;
+        return this.getSecurityQuestions().size() == SecurityQuestionService.SECURITY_QUESTION_LIMIT;
     }
 }
