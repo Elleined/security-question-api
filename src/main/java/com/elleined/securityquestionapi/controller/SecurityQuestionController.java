@@ -4,7 +4,7 @@ import com.elleined.securityquestionapi.dto.sq.UserDefinedSecurityQuestionDTO;
 import com.elleined.securityquestionapi.mapper.PreDefinedQuestionMapper;
 import com.elleined.securityquestionapi.model.PreDefinedQuestion;
 import com.elleined.securityquestionapi.model.User;
-import com.elleined.securityquestionapi.service.question.pdq.PreDefinedQuestionService;
+import com.elleined.securityquestionapi.service.pdq.PreDefinedQuestionService;
 import com.elleined.securityquestionapi.service.sq.SecurityQuestionService;
 import com.elleined.securityquestionapi.service.user.UserService;
 import lombok.RequiredArgsConstructor;

@@ -3,7 +3,7 @@ package com.elleined.securityquestionapi.controller.question;
 import com.elleined.securityquestionapi.dto.PreDefinedQuestionDTO;
 import com.elleined.securityquestionapi.mapper.sq.PreDefinedSecurityQuestionMapper;
 import com.elleined.securityquestionapi.model.PreDefinedQuestion;
-import com.elleined.securityquestionapi.service.question.pdq.PreDefinedQuestionService;
+import com.elleined.securityquestionapi.service.pdq.PreDefinedQuestionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

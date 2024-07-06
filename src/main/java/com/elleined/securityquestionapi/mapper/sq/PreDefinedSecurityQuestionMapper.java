@@ -1,6 +1,5 @@
 package com.elleined.securityquestionapi.mapper.sq;
 
-import com.elleined.securityquestionapi.dto.PreDefinedQuestionDTO;
 import com.elleined.securityquestionapi.dto.sq.PreDefinedSecurityQuestionDTO;
 import com.elleined.securityquestionapi.mapper.CustomMapper;
 import com.elleined.securityquestionapi.mapper.PreDefinedQuestionMapper;
@@ -40,6 +39,6 @@ public interface PreDefinedSecurityQuestionMapper extends CustomMapper<PreDefine
             @Mapping(target = "preDefinedQuestion", source = "preDefinedQuestion")
     })
     PreDefinedSecurityQuestion toEntity(User owner,
-                                        String answer,
-                                        PreDefinedQuestion preDefinedQuestion);
+                                        PreDefinedQuestion preDefinedQuestion,
+                                        String answer);
 }

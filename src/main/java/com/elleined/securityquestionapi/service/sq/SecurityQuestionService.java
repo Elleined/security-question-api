@@ -1,21 +1,21 @@
 package com.elleined.securityquestionapi.service.sq;
 
 import com.elleined.securityquestionapi.exception.resource.ResourceNotFoundException;
-import com.elleined.securityquestionapi.model.PreDefinedQuestion;
 import com.elleined.securityquestionapi.model.User;
+import com.elleined.securityquestionapi.model.sq.SecurityQuestion;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
-import java.util.List;
-
-public interface SecurityQuestionService {
+public interface SecurityQuestionService<T extends SecurityQuestion> {
     int SECURITY_QUESTION_LIMIT = 3;
 
-    List<SecurityQuestion> getAllByUser(User currentUser);
-    boolean isAnswerCorrect(User currentUser, SecurityQuestion securityQuestion, String providedAnswer);
-    SecurityQuestion save(User currentUser, PreDefinedQuestion preDefinedQuestion, String answer);
+    T getById(int id) throws ResourceNotFoundException;
+    Page<T> getAll(User currentUser, Pageable pageable);
 
-    SecurityQuestion getById(int id) throws ResourceNotFoundException;
+    boolean isAnswerCorrect(User currentUser, T securityQuestion, String providedAnswer);
 
-    default boolean hasReachedLimitOfSecurityQuestions(User currentUser) {
-        return currentUser.getSecurityQuestions().size() == SecurityQuestionService.SECURITY_QUESTION_LIMIT;
+    default boolean isLimitReached(User currentUser) {
+        return currentUser.getPreDefinedSecurityQuestions().size() +
+                currentUser.getUserDefinedQuestions().size() >= SECURITY_QUESTION_LIMIT;
     }
 }
