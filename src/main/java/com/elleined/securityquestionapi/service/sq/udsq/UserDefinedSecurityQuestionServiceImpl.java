@@ -26,7 +26,8 @@ public class UserDefinedSecurityQuestionServiceImpl implements UserDefinedSecuri
 
     @Override
     public UserDefinedSecurityQuestion save(User currentUser, String question, String answer) {
-        UserDefinedSecurityQuestion userDefinedSecurityQuestion = userDefinedSecurityQuestionMapper.toEntity(currentUser, question, answer);
+        String encodedPassword = passwordEncoder.encode(answer);
+        UserDefinedSecurityQuestion userDefinedSecurityQuestion = userDefinedSecurityQuestionMapper.toEntity(currentUser, question, encodedPassword);
 
         userDefinedSecurityQuestionRepository.save(userDefinedSecurityQuestion);
         log.debug("Saving user defined question success.");

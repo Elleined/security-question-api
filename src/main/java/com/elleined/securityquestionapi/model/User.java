@@ -34,10 +34,10 @@ public class User extends PrimaryKeyIdentity {
     private List<UserDefinedSecurityQuestion> userDefinedQuestions;
 
     public boolean has(PreDefinedSecurityQuestion preDefinedSecurityQuestion) {
-        return this.getPreDefinedSecurityQuestions().contains(preDefinedSecurityQuestion);
+        return this.getPreDefinedSecurityQuestions().stream().anyMatch(preDefinedSecurityQuestion::equals);
     }
 
     public boolean has(UserDefinedSecurityQuestion userDefinedQuestion) {
-        return this.getUserDefinedQuestions().contains(userDefinedQuestion);
+        return this.getUserDefinedQuestions().stream().anyMatch(userDefinedQuestion::equals);
     }
 }

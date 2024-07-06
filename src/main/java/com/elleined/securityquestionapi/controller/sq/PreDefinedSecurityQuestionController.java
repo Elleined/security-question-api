@@ -57,7 +57,7 @@ public class PreDefinedSecurityQuestionController {
                 .map(dto -> dto.addLinks(currentUser, includeRelatedLinks));
     }
 
-    @GetMapping("/{securityQuestionId}")
+    @GetMapping("/{securityQuestionId}/check-answer")
     public boolean isAnswerCorrect(@PathVariable("currentUserId") int currentUserId,
                                    @PathVariable("securityQuestionId") int securityQuestionId,
                                    @RequestParam("providedAnswer") String providedAnswer) {

@@ -19,13 +19,13 @@ public class AfterStartUp {
     @PostConstruct
     void init() {
         if (preDefinedQuestionRepository.existsById(1)) {
-            System.out.println("Returning because there's already saved questions");
+            System.out.println("Returning because pre-defined data is already saved.");
             return;
         }
 
-        System.out.println("Saving questions! Please wait...");
+        System.out.println("Saving pre-defined data! Please wait...");
         userPopulator.populate();
         preDefinedQuestionPopulator.populate();
-        System.out.println("Saving questions success...");
+        System.out.println("Saving pre-defined data success...");
     }
 }

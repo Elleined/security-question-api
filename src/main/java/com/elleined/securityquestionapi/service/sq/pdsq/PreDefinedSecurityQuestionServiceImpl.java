@@ -27,7 +27,8 @@ public class PreDefinedSecurityQuestionServiceImpl implements PreDefinedSecurity
 
     @Override
     public PreDefinedSecurityQuestion save(User currentUser, PreDefinedQuestion preDefinedQuestion, String answer) {
-        PreDefinedSecurityQuestion preDefinedSecurityQuestion = preDefinedSecurityQuestionMapper.toEntity(currentUser, preDefinedQuestion, answer);
+        String encodedPassword = passwordEncoder.encode(answer);
+        PreDefinedSecurityQuestion preDefinedSecurityQuestion = preDefinedSecurityQuestionMapper.toEntity(currentUser, preDefinedQuestion, encodedPassword);
 
         preDefinedSecurityQuestionRepository.save(preDefinedSecurityQuestion);
         log.debug("Saving pre defined security question success.");
