@@ -1,7 +1,7 @@
 package com.elleined.securityquestionapi;
 
 import com.elleined.securityquestionapi.populator.PreDefinedQuestionPopulator;
-import com.elleined.securityquestionapi.service.PreDefinedQuestionService;
+import com.elleined.securityquestionapi.repository.PreDefinedQuestionRepository;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -10,13 +10,13 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class AfterStartUp {
+    private final PreDefinedQuestionRepository preDefinedQuestionRepository;
 
     private final PreDefinedQuestionPopulator preDefinedQuestionPopulator;
-    private final PreDefinedQuestionService preDefinedQuestionService;
 
     @PostConstruct
     void init() {
-        if (preDefinedQuestionService.getById(1) != null) {
+        if (preDefinedQuestionRepository.existsById(1)) {
             System.out.println("Returning because there's already saved questions");
             return;
         }

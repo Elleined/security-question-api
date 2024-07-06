@@ -8,12 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
-@Entity
-@Table(
-        name = "tbl_security_question",
-        indexes = @Index(name = "created_at_idx", columnList = "created_at")
-)
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@MappedSuperclass
 @Getter
 @Setter
 @NoArgsConstructor

@@ -1,17 +1,17 @@
 package com.elleined.securityquestionapi.model.sq;
 
 import com.elleined.securityquestionapi.model.PreDefinedQuestion;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 @Entity
-@Table(name = "tbl_pre_defined_security_question")
+@Table(
+        name = "tbl_pre_defined_security_question",
+        indexes = @Index(name = "created_at_idx", columnList = "created_at")
+)
 @Getter
 @Setter
 @NoArgsConstructor
