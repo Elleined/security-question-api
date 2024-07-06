@@ -15,17 +15,14 @@ import java.util.List;
 @Setter
 public class PreDefinedSecurityQuestionDTO extends SecurityQuestionDTO {
     private PreDefinedQuestionDTO preDefinedQuestionDTO;
-    private String question;
 
     @Builder
     public PreDefinedSecurityQuestionDTO(int id,
                                          LocalDateTime createdAt,
                                          UserDTO ownerDTO,
-                                         PreDefinedQuestionDTO preDefinedQuestionDTO,
-                                         String question) {
+                                         PreDefinedQuestionDTO preDefinedQuestionDTO) {
         super(id, createdAt, ownerDTO);
         this.preDefinedQuestionDTO = preDefinedQuestionDTO;
-        this.question = question;
     }
 
     @Override

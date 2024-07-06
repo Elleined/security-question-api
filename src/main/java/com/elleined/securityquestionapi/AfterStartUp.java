@@ -10,12 +10,13 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class AfterStartUp {
+
     private final PreDefinedQuestionPopulator preDefinedQuestionPopulator;
     private final PreDefinedQuestionService preDefinedQuestionService;
 
     @PostConstruct
     void init() {
-        if (preDefinedQuestionService.existsById(1)) {
+        if (preDefinedQuestionService.getById(1) != null) {
             System.out.println("Returning because there's already saved questions");
             return;
         }

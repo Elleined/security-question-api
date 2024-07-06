@@ -25,6 +25,7 @@ public interface PreDefinedSecurityQuestionMapper extends CustomMapper<PreDefine
             @Mapping(target = "createdAt", source = "createdAt"),
 
             @Mapping(target = "ownerDTO", source = "owner"),
+
             @Mapping(target = "preDefinedQuestionDTO", source = "preDefinedQuestion"),
     })
     PreDefinedSecurityQuestionDTO toDTO(PreDefinedSecurityQuestion preDefinedSecurityQuestion);

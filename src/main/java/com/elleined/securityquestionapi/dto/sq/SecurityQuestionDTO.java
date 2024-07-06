@@ -13,7 +13,6 @@ import java.time.LocalDateTime;
 public abstract class SecurityQuestionDTO extends DTO {
     private UserDTO ownerDTO;
 
-    @Builder
     public SecurityQuestionDTO(int id, LocalDateTime createdAt, UserDTO ownerDTO) {
         super(id, createdAt);
         this.ownerDTO = ownerDTO;
