@@ -5,9 +5,9 @@ import com.elleined.securityquestionapi.exception.resource.ResourceNotFoundExcep
 import com.elleined.securityquestionapi.exception.resource.ResourceNotOwnedException;
 import com.elleined.securityquestionapi.mapper.question.CustomQuestionMapper;
 import com.elleined.securityquestionapi.model.User;
-import com.elleined.securityquestionapi.model.question.UserDefinedSecurityQuestion;
-import com.elleined.securityquestionapi.model.question.SecurityQuestion;
-import com.elleined.securityquestionapi.repository.question.CustomQuestionRepository;
+import com.elleined.securityquestionapi.model.sq.UserDefinedSecurityQuestion;
+import com.elleined.securityquestionapi.model.sq.SecurityQuestion;
+import com.elleined.securityquestionapi.repository.sq.UserDefinedSecurityQuestionRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -22,24 +22,24 @@ import java.util.List;
 @Transactional
 @RequiredArgsConstructor
 public class CustomQuestionServiceImpl implements CustomQuestionService {
-    private final CustomQuestionRepository customQuestionRepository;
+    private final UserDefinedSecurityQuestionRepository userDefinedSecurityQuestionRepository;
     private final CustomQuestionMapper customQuestionMapper;
 
     private final PasswordEncoder passwordEncoder;
 
     @Override
     public UserDefinedSecurityQuestion getById(int id) {
-        return customQuestionRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Pre defined question with id of " + id + " doesn't exists!"));
+        return userDefinedSecurityQuestionRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Pre defined question with id of " + id + " doesn't exists!"));
     }
 
     @Override
     public boolean existsById(int id) {
-        return customQuestionRepository.existsById(id);
+        return userDefinedSecurityQuestionRepository.existsById(id);
     }
 
     @Override
     public boolean alreadyExists(String question) {
-        return customQuestionRepository.findAll().stream()
+        return userDefinedSecurityQuestionRepository.findAll().stream()
                 .map(SecurityQuestion::getQuestion)
                 .anyMatch(question::equalsIgnoreCase);
     }
@@ -51,7 +51,7 @@ public class CustomQuestionServiceImpl implements CustomQuestionService {
 
         String encodedPassword = passwordEncoder.encode(answer);
         UserDefinedSecurityQuestion createdQuestion = customQuestionMapper.toEntity(currentUser, question, encodedPassword);
-        customQuestionRepository.save(createdQuestion);
+        userDefinedSecurityQuestionRepository.save(createdQuestion);
 
         log.debug("Question with id of {} saved successfully", createdQuestion.getId());
         return createdQuestion;

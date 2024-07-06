@@ -3,7 +3,7 @@ package com.elleined.securityquestionapi.controller.question;
 import com.elleined.securityquestionapi.dto.question.CustomQuestionDTO;
 import com.elleined.securityquestionapi.mapper.question.CustomQuestionMapper;
 import com.elleined.securityquestionapi.model.User;
-import com.elleined.securityquestionapi.model.question.UserDefinedSecurityQuestion;
+import com.elleined.securityquestionapi.model.sq.UserDefinedSecurityQuestion;
 import com.elleined.securityquestionapi.service.question.cq.CustomQuestionService;
 import com.elleined.securityquestionapi.service.user.UserService;
 import lombok.RequiredArgsConstructor;

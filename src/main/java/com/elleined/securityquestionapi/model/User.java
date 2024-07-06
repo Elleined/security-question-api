@@ -1,6 +1,6 @@
 package com.elleined.securityquestionapi.model;
-import com.elleined.securityquestionapi.model.question.PreDefinedSecurityQuestion;
-import com.elleined.securityquestionapi.model.question.UserDefinedSecurityQuestion;
+import com.elleined.securityquestionapi.model.sq.PreDefinedSecurityQuestion;
+import com.elleined.securityquestionapi.model.sq.UserDefinedSecurityQuestion;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;

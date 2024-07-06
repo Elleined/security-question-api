@@ -1,4 +1,4 @@
-package com.elleined.securityquestionapi.model.question;
+package com.elleined.securityquestionapi.model.sq;
 
 import com.elleined.securityquestionapi.model.PrimaryKeyIdentity;
 import com.elleined.securityquestionapi.model.User;

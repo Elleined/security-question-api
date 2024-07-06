@@ -4,8 +4,8 @@ import com.elleined.securityquestionapi.exception.question.QuestionAlreadyExists
 import com.elleined.securityquestionapi.exception.resource.ResourceNotFoundException;
 import com.elleined.securityquestionapi.mapper.question.PreDefinedQuestionMapper;
 import com.elleined.securityquestionapi.model.PreDefinedQuestion;
-import com.elleined.securityquestionapi.model.question.SecurityQuestion;
-import com.elleined.securityquestionapi.repository.question.PreDefinedQuestionRepository;
+import com.elleined.securityquestionapi.model.sq.SecurityQuestion;
+import com.elleined.securityquestionapi.repository.PreDefinedQuestionRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

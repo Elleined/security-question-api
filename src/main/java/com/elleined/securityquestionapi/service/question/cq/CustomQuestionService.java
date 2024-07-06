@@ -1,7 +1,7 @@
 package com.elleined.securityquestionapi.service.question.cq;
 
 import com.elleined.securityquestionapi.model.User;
-import com.elleined.securityquestionapi.model.question.UserDefinedSecurityQuestion;
+import com.elleined.securityquestionapi.model.sq.UserDefinedSecurityQuestion;
 import com.elleined.securityquestionapi.service.question.QuestionService;
 
 import java.util.List;

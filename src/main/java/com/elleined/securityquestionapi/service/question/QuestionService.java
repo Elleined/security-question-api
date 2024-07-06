@@ -1,6 +1,6 @@
 package com.elleined.securityquestionapi.service.question;
 
-import com.elleined.securityquestionapi.model.question.SecurityQuestion;
+import com.elleined.securityquestionapi.model.sq.SecurityQuestion;
 
 public interface QuestionService<T extends SecurityQuestion> {
     T getById(int id);
