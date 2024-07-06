@@ -1,7 +1,7 @@
 package com.elleined.securityquestionapi.controller.question;
 
 import com.elleined.securityquestionapi.dto.PreDefinedQuestionDTO;
-import com.elleined.securityquestionapi.mapper.question.PreDefinedQuestionMapper;
+import com.elleined.securityquestionapi.mapper.sq.PreDefinedSecurityQuestionMapper;
 import com.elleined.securityquestionapi.model.PreDefinedQuestion;
 import com.elleined.securityquestionapi.service.question.pdq.PreDefinedQuestionService;
 import lombok.RequiredArgsConstructor;
@@ -17,18 +17,18 @@ import java.util.List;
 @RequestMapping("/predefined-questions")
 public class PreDefinedQuestionController {
     private final PreDefinedQuestionService preDefinedQuestionService;
-    private final PreDefinedQuestionMapper preDefinedQuestionMapper;
+    private final PreDefinedSecurityQuestionMapper preDefinedSecurityQuestionMapper;
 
     @GetMapping
     public List<PreDefinedQuestionDTO> getAll() {
         return preDefinedQuestionService.getAll().stream()
-                .map(preDefinedQuestionMapper::toDTO)
+                .map(preDefinedSecurityQuestionMapper::toDTO)
                 .toList();
     }
 
     @GetMapping("/{questionId}")
     public PreDefinedQuestionDTO getById(@PathVariable("questionId") int questionId) {
         PreDefinedQuestion preDefinedQuestion = preDefinedQuestionService.getById(questionId);
-        return preDefinedQuestionMapper.toDTO(preDefinedQuestion);
+        return preDefinedSecurityQuestionMapper.toDTO(preDefinedQuestion);
     }
 }

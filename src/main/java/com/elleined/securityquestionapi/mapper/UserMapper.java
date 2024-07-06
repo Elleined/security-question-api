@@ -7,23 +7,25 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 
 @Mapper(componentModel = "spring")
-public interface UserMapper {
+public interface UserMapper extends CustomMapper<User, UserDTO> {
 
     @Mappings({
             @Mapping(target = "id", source = "id"),
+            @Mapping(target = "createdAt", source = "createdAt"),
+
             @Mapping(target = "name", source = "name"),
-            @Mapping(target = "customQuestionIds", expression = "java(user.securityQuestionIds())"),
-            @Mapping(target = "securityQuestionIds", expression = "java(user.customQuestionIds())")
     })
     UserDTO toDTO(User user);
 
     @Mappings({
             @Mapping(target = "id", ignore = true),
+            @Mapping(target = "createdAt", expression = "java(java.time.LocalDateTime.now())"),
 
-            @Mapping(target = "name", expression = "java(name)"),
+            @Mapping(target = "name", source = "name"),
 
-            @Mapping(target = "securityQuestions", expression = "java(new java.util.ArrayList<>())"),
+            @Mapping(target = "preDefinedSecurityQuestions", expression = "java(new java.util.HashSet<>())"),
             @Mapping(target = "userDefinedQuestions", expression = "java(new java.util.ArrayList<>())")
     })
     User toEntity(String name);
+
 }

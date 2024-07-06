@@ -2,7 +2,7 @@ package com.elleined.securityquestionapi.service.question.pdq;
 
 import com.elleined.securityquestionapi.exception.question.QuestionAlreadyExistsException;
 import com.elleined.securityquestionapi.exception.resource.ResourceNotFoundException;
-import com.elleined.securityquestionapi.mapper.question.PreDefinedQuestionMapper;
+import com.elleined.securityquestionapi.mapper.sq.PreDefinedSecurityQuestionMapper;
 import com.elleined.securityquestionapi.model.PreDefinedQuestion;
 import com.elleined.securityquestionapi.model.sq.SecurityQuestion;
 import com.elleined.securityquestionapi.repository.PreDefinedQuestionRepository;
@@ -20,7 +20,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PreDefinedQuestionServiceImpl implements PreDefinedQuestionService {
     private final PreDefinedQuestionRepository preDefinedQuestionRepository;
-    private final PreDefinedQuestionMapper predefinedQuestionMapper;
+    private final PreDefinedSecurityQuestionMapper predefinedSecurityQuestionMapper;
 
     @Override
     public PreDefinedQuestion getById(int id) {
@@ -51,7 +51,7 @@ public class PreDefinedQuestionServiceImpl implements PreDefinedQuestionService 
         if (alreadyExists(question))
             throw new QuestionAlreadyExistsException("Cannot save question! becuase question already exists!");
 
-        PreDefinedQuestion createdQuestion = predefinedQuestionMapper.toEntity(question);
+        PreDefinedQuestion createdQuestion = predefinedSecurityQuestionMapper.toEntity(question);
         preDefinedQuestionRepository.save(createdQuestion);
         log.debug("Question with id of {} saved successfully", createdQuestion.getId());
         return createdQuestion;
@@ -63,7 +63,7 @@ public class PreDefinedQuestionServiceImpl implements PreDefinedQuestionService 
             throw new QuestionAlreadyExistsException("Cannot save all question! because one of the question already exists in database!");
 
         List<PreDefinedQuestion> predefinedQuestions = questions.stream()
-                .map(predefinedQuestionMapper::toEntity)
+                .map(predefinedSecurityQuestionMapper::toEntity)
                 .toList();
 
         preDefinedQuestionRepository.saveAll(predefinedQuestions);

@@ -1,9 +1,8 @@
 package com.elleined.securityquestionapi.controller.question;
 
 import com.elleined.securityquestionapi.dto.sq.PreDefinedSecurityQuestionDTO;
-import com.elleined.securityquestionapi.mapper.question.CustomQuestionMapper;
+import com.elleined.securityquestionapi.mapper.sq.UserDefinedSecurityQuestionMapper;
 import com.elleined.securityquestionapi.model.User;
-import com.elleined.securityquestionapi.model.sq.UserDefinedSecurityQuestion;
 import com.elleined.securityquestionapi.service.question.cq.CustomQuestionService;
 import com.elleined.securityquestionapi.service.user.UserService;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +16,7 @@ import java.util.List;
 @RequestMapping("/users/{currentUserId}/custom-questions")
 public class CustomQuestionController {
     private final CustomQuestionService customQuestionService;
-    private final CustomQuestionMapper customQuestionMapper;
+    private final UserDefinedSecurityQuestionMapper userDefinedSecurityQuestionMapper;
 
     private final UserService userService;
 
@@ -26,8 +25,8 @@ public class CustomQuestionController {
                                               @RequestParam("question") String question,
                                               @RequestParam("answer") String answer) {
         User currentUser = userService.getById(currentUserId);
-        UserDefinedSecurityQuestion userDefinedQuestion = customQuestionService.save(currentUser, question, answer);
-        return customQuestionMapper.toDTO(userDefinedQuestion);
+        com.elleined.securityquestionapi.model.sq.UserDefinedSecurityQuestion userDefinedQuestion = customQuestionService.save(currentUser, question, answer);
+        return userDefinedSecurityQuestionMapper.toDTO(userDefinedQuestion);
     }
 
     @GetMapping("/{customQuestionId}/check-answer")
@@ -36,7 +35,7 @@ public class CustomQuestionController {
                                                    @RequestParam("providedAnswer") String providedAnswer) {
 
         User currentUser = userService.getById(currentUserId);
-        UserDefinedSecurityQuestion userDefinedQuestion = customQuestionService.getById(customQuestionId);
+        com.elleined.securityquestionapi.model.sq.UserDefinedSecurityQuestion userDefinedQuestion = customQuestionService.getById(customQuestionId);
         return ResponseEntity.ok(customQuestionService.isAnswerCorrect(currentUser, userDefinedQuestion, providedAnswer));
     }
 
@@ -44,7 +43,7 @@ public class CustomQuestionController {
     public List<PreDefinedSecurityQuestionDTO> getAll(@PathVariable("currentUserId") Integer currentUserId) {
         User currentUser = userService.getById(currentUserId);
         return customQuestionService.getAllByOwner(currentUser).stream()
-                .map(customQuestionMapper::toDTO)
+                .map(userDefinedSecurityQuestionMapper::toDTO)
                 .toList();
     }
 }

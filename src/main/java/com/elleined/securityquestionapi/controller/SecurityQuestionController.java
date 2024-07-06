@@ -1,7 +1,7 @@
 package com.elleined.securityquestionapi.controller;
 
 import com.elleined.securityquestionapi.dto.sq.UserDefinedSecurityQuestionDTO;
-import com.elleined.securityquestionapi.mapper.SecurityQuestionMapper;
+import com.elleined.securityquestionapi.mapper.PreDefinedQuestionMapper;
 import com.elleined.securityquestionapi.model.PreDefinedQuestion;
 import com.elleined.securityquestionapi.model.User;
 import com.elleined.securityquestionapi.service.question.pdq.PreDefinedQuestionService;
@@ -18,7 +18,7 @@ import java.util.List;
 @RequestMapping("/users/{currentUserId}/security-questions")
 public class SecurityQuestionController {
     private final SecurityQuestionService securityQuestionService;
-    private final SecurityQuestionMapper securityQuestionMapper;
+    private final PreDefinedQuestionMapper preDefinedQuestionMapper;
 
     private final UserService userService;
 
@@ -28,7 +28,7 @@ public class SecurityQuestionController {
     public List<UserDefinedSecurityQuestionDTO> getAllByUser(@PathVariable("currentUserId") Integer currentUserId) {
         User currentUser = userService.getById(currentUserId);
         return securityQuestionService.getAllByUser(currentUser).stream()
-                .map(securityQuestionMapper::toDTO)
+                .map(preDefinedQuestionMapper::toDTO)
                 .toList();
     }
 
@@ -50,6 +50,6 @@ public class SecurityQuestionController {
         User currentUser = userService.getById(currentUserId);
         PreDefinedQuestion preDefinedQuestion = preDefinedQuestionService.getById(questionId);
         SecurityQuestion securityQuestion = securityQuestionService.save(currentUser, preDefinedQuestion, answer);
-        return securityQuestionMapper.toDTO(securityQuestion);
+        return preDefinedQuestionMapper.toDTO(securityQuestion);
     }
 }
