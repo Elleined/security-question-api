@@ -50,12 +50,6 @@ public class UserDefinedSecurityQuestionDTO extends SecurityQuestionDTO {
                         .getAll(currentUser.getId(), 0, 0, null, null, doInclude))
                         .withRel("user-defined-security-question")
                         .withTitle("Get all user defined security questions")
-                        .withType(HttpMethod.GET.name()),
-
-                linkTo(methodOn(UserDefinedSecurityQuestionController.class)
-                        .isAnswerCorrect(currentUser.getId(), 0, null))
-                        .withRel("user-defined-security-question")
-                        .withTitle("Check answer")
                         .withType(HttpMethod.GET.name())
         );
     }

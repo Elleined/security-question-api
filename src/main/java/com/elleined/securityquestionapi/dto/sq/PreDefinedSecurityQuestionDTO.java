@@ -55,12 +55,6 @@ public class PreDefinedSecurityQuestionDTO extends SecurityQuestionDTO {
                         .getAll(currentUser.getId(), 0, 0, null, null, doInclude))
                         .withRel("pre-defined-security-question")
                         .withTitle("Get all pre defined security questions")
-                        .withType(HttpMethod.GET.name()),
-
-                linkTo(methodOn(UserDefinedSecurityQuestionController.class)
-                        .isAnswerCorrect(currentUser.getId(), 0, null))
-                        .withRel("pre-defined-security-question")
-                        .withTitle("Check answer")
                         .withType(HttpMethod.GET.name())
         );
     }
