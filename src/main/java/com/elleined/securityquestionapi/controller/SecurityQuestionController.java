@@ -2,9 +2,8 @@ package com.elleined.securityquestionapi.controller;
 
 import com.elleined.securityquestionapi.dto.SecurityQuestionDTO;
 import com.elleined.securityquestionapi.mapper.SecurityQuestionMapper;
-import com.elleined.securityquestionapi.model.SecurityQuestion;
 import com.elleined.securityquestionapi.model.User;
-import com.elleined.securityquestionapi.model.question.PreDefinedQuestion;
+import com.elleined.securityquestionapi.model.PreDefinedQuestion;
 import com.elleined.securityquestionapi.service.question.pdq.PreDefinedQuestionService;
 import com.elleined.securityquestionapi.service.sq.SecurityQuestionService;
 import com.elleined.securityquestionapi.service.user.UserService;

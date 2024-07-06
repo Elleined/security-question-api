@@ -1,9 +1,8 @@
 package com.elleined.securityquestionapi.service.sq;
 
 import com.elleined.securityquestionapi.exception.resource.ResourceNotFoundException;
-import com.elleined.securityquestionapi.model.SecurityQuestion;
 import com.elleined.securityquestionapi.model.User;
-import com.elleined.securityquestionapi.model.question.PreDefinedQuestion;
+import com.elleined.securityquestionapi.model.PreDefinedQuestion;
 
 import java.util.List;
 
@@ -15,4 +14,8 @@ public interface SecurityQuestionService {
     SecurityQuestion save(User currentUser, PreDefinedQuestion preDefinedQuestion, String answer);
 
     SecurityQuestion getById(int id) throws ResourceNotFoundException;
+
+    default boolean hasReachedLimitOfSecurityQuestions(User currentUser) {
+        return currentUser.getSecurityQuestions().size() == SecurityQuestionService.SECURITY_QUESTION_LIMIT;
+    }
 }

@@ -2,7 +2,7 @@ package com.elleined.securityquestionapi.mapper.question;
 
 import com.elleined.securityquestionapi.dto.question.CustomQuestionDTO;
 import com.elleined.securityquestionapi.model.User;
-import com.elleined.securityquestionapi.model.question.CustomQuestion;
+import com.elleined.securityquestionapi.model.question.UserDefinedSecurityQuestion;
 import org.mapstruct.Context;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -18,12 +18,12 @@ public interface CustomQuestionMapper {
             @Mapping(target = "createdAt", expression = "java(java.time.LocalDateTime.now())"),
             @Mapping(target = "answer", expression = "java(answer)")
     })
-    CustomQuestion toEntity(User currentUser,
-                            String question,
-                            @Context String answer);
+    UserDefinedSecurityQuestion toEntity(User currentUser,
+                                         String question,
+                                         @Context String answer);
 
     @Mappings({
             @Mapping(target = "ownerId", source = "owner.id")
     })
-    CustomQuestionDTO toDTO(CustomQuestion customQuestion);
+    CustomQuestionDTO toDTO(UserDefinedSecurityQuestion userDefinedQuestion);
 }

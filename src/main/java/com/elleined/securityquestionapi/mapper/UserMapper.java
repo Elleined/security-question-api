@@ -23,7 +23,7 @@ public interface UserMapper {
             @Mapping(target = "name", expression = "java(name)"),
 
             @Mapping(target = "securityQuestions", expression = "java(new java.util.ArrayList<>())"),
-            @Mapping(target = "customQuestions", expression = "java(new java.util.ArrayList<>())")
+            @Mapping(target = "userDefinedQuestions", expression = "java(new java.util.ArrayList<>())")
     })
     User toEntity(String name);
 }

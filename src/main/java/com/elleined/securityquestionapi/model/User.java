@@ -1,30 +1,25 @@
 package com.elleined.securityquestionapi.model;
-
-
-import com.elleined.securityquestionapi.model.question.CustomQuestion;
-import com.elleined.securityquestionapi.service.sq.SecurityQuestionService;
-import jakarta.persistence.*;
-import lombok.*;
+import com.elleined.securityquestionapi.model.question.PreDefinedSecurityQuestion;
+import com.elleined.securityquestionapi.model.question.UserDefinedSecurityQuestion;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "tbl_user")
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
-public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(
-            name = "id",
-            nullable = false,
-            updatable = false,
-            unique = true
-    )
-    private int id;
+@NoArgsConstructor
+@SuperBuilder
+public class User extends PrimaryKeyIdentity {
 
     @Column(
             name = "name",
@@ -33,29 +28,16 @@ public class User {
     private String name;
 
     @OneToMany(mappedBy = "owner")
-    @Setter(AccessLevel.NONE)
-    private List<SecurityQuestion> securityQuestions;
+    private Set<PreDefinedSecurityQuestion> preDefinedSecurityQuestions;
 
     @OneToMany(mappedBy = "owner")
-    @Setter(AccessLevel.NONE)
-    private List<CustomQuestion> customQuestions;
+    private List<UserDefinedSecurityQuestion> userDefinedQuestions;
 
-    public List<Integer> securityQuestionIds() {
-        return this.securityQuestions.stream().map(SecurityQuestion::getId).toList();
-    }
-    public List<Integer> customQuestionIds() {
-        return this.customQuestions.stream().map(CustomQuestion::getId).toList();
+    public boolean has(PreDefinedSecurityQuestion preDefinedSecurityQuestion) {
+        return this.getPreDefinedSecurityQuestions().contains(preDefinedSecurityQuestion);
     }
 
-    public boolean has(SecurityQuestion securityQuestion) {
-        return this.getSecurityQuestions().stream().anyMatch(securityQuestion::equals);
-    }
-
-    public boolean has(CustomQuestion customQuestion) {
-        return this.getCustomQuestions().stream().anyMatch(customQuestion::equals);
-    }
-
-    public boolean hasReachedLimitOfSecurityQuestions() {
-        return this.getSecurityQuestions().size() == SecurityQuestionService.SECURITY_QUESTION_LIMIT;
+    public boolean has(UserDefinedSecurityQuestion userDefinedQuestion) {
+        return this.getUserDefinedQuestions().contains(userDefinedQuestion);
     }
 }

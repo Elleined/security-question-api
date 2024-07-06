@@ -3,7 +3,7 @@ package com.elleined.securityquestionapi.controller.question;
 import com.elleined.securityquestionapi.dto.question.CustomQuestionDTO;
 import com.elleined.securityquestionapi.mapper.question.CustomQuestionMapper;
 import com.elleined.securityquestionapi.model.User;
-import com.elleined.securityquestionapi.model.question.CustomQuestion;
+import com.elleined.securityquestionapi.model.question.UserDefinedSecurityQuestion;
 import com.elleined.securityquestionapi.service.question.cq.CustomQuestionService;
 import com.elleined.securityquestionapi.service.user.UserService;
 import lombok.RequiredArgsConstructor;
@@ -26,8 +26,8 @@ public class CustomQuestionController {
                                   @RequestParam("question") String question,
                                   @RequestParam("answer") String answer) {
         User currentUser = userService.getById(currentUserId);
-        CustomQuestion customQuestion = customQuestionService.save(currentUser, question, answer);
-        return customQuestionMapper.toDTO(customQuestion);
+        UserDefinedSecurityQuestion userDefinedQuestion = customQuestionService.save(currentUser, question, answer);
+        return customQuestionMapper.toDTO(userDefinedQuestion);
     }
 
     @GetMapping("/{customQuestionId}/check-answer")
@@ -36,8 +36,8 @@ public class CustomQuestionController {
                                                    @RequestParam("providedAnswer") String providedAnswer) {
 
         User currentUser = userService.getById(currentUserId);
-        CustomQuestion customQuestion = customQuestionService.getById(customQuestionId);
-        return ResponseEntity.ok(customQuestionService.isAnswerCorrect(currentUser, customQuestion, providedAnswer));
+        UserDefinedSecurityQuestion userDefinedQuestion = customQuestionService.getById(customQuestionId);
+        return ResponseEntity.ok(customQuestionService.isAnswerCorrect(currentUser, userDefinedQuestion, providedAnswer));
     }
 
     @GetMapping

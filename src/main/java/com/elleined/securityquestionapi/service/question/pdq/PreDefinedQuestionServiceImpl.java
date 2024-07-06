@@ -3,8 +3,8 @@ package com.elleined.securityquestionapi.service.question.pdq;
 import com.elleined.securityquestionapi.exception.question.QuestionAlreadyExistsException;
 import com.elleined.securityquestionapi.exception.resource.ResourceNotFoundException;
 import com.elleined.securityquestionapi.mapper.question.PreDefinedQuestionMapper;
-import com.elleined.securityquestionapi.model.question.PreDefinedQuestion;
-import com.elleined.securityquestionapi.model.question.Question;
+import com.elleined.securityquestionapi.model.PreDefinedQuestion;
+import com.elleined.securityquestionapi.model.question.SecurityQuestion;
 import com.elleined.securityquestionapi.repository.question.PreDefinedQuestionRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -35,14 +35,14 @@ public class PreDefinedQuestionServiceImpl implements PreDefinedQuestionService 
     @Override
     public boolean alreadyExists(String question) {
         return preDefinedQuestionRepository.findAll().stream()
-                .map(Question::getQuestion)
+                .map(SecurityQuestion::getQuestion)
                 .anyMatch(question::equalsIgnoreCase);
     }
 
     @Override
     public List<PreDefinedQuestion> getAll() {
         return preDefinedQuestionRepository.findAll().stream()
-                .sorted(Comparator.comparingInt(Question::getId))
+                .sorted(Comparator.comparingInt(SecurityQuestion::getId))
                 .toList();
     }
 
@@ -67,7 +67,7 @@ public class PreDefinedQuestionServiceImpl implements PreDefinedQuestionService 
                 .toList();
 
         preDefinedQuestionRepository.saveAll(predefinedQuestions);
-        log.debug("Questions with ids of {} saved successfully", predefinedQuestions.stream().map(Question::getId).toList());
+        log.debug("Questions with ids of {} saved successfully", predefinedQuestions.stream().map(SecurityQuestion::getId).toList());
         return predefinedQuestions;
     }
 }

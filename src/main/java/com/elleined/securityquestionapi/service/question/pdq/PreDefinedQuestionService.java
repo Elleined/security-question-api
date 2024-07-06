@@ -1,6 +1,6 @@
 package com.elleined.securityquestionapi.service.question.pdq;
 
-import com.elleined.securityquestionapi.model.question.PreDefinedQuestion;
+import com.elleined.securityquestionapi.model.PreDefinedQuestion;
 import com.elleined.securityquestionapi.service.question.QuestionService;
 
 import java.util.List;
