@@ -8,19 +8,20 @@ services:
     ports:
       - "8087:8087"
     environment:
-      - MYSQL_HOST=sqa_mysql_server
+      - MYSQL_HOST=mysql_server
       - MYSQL_PORT=3306
       - MYSQL_DB=sqa_db
       - MYSQL_USER=root
       - MYSQL_PASS=root
+      - PORT=8087
     networks:
       - sqa_network
     depends_on:
-      sqa_mysql_server:
+      mysql_server:
         condition: service_healthy
-  sqa_mysql_server:
+  mysql_server:
     image: mysql:8.0.32
-    container_name: sqa_mysql_server
+    container_name: mysql_server
     restart: always
     ports:
       - "3307:3306"
