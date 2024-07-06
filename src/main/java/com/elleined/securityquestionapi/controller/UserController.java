@@ -5,7 +5,10 @@ import com.elleined.securityquestionapi.mapper.UserMapper;
 import com.elleined.securityquestionapi.model.User;
 import com.elleined.securityquestionapi.service.user.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
@@ -15,15 +18,11 @@ public class UserController {
     private final UserMapper userMapper;
 
     @PostMapping
-    public UserDTO save(@RequestParam("name") String name) {
+    public UserDTO save(@RequestParam("name") String name,
+                        @RequestParam(defaultValue = "false", name = "includeRelatedLinks") boolean includeRelatedLinks) {
+
         User savedUser = userService.save(name);
-        return userMapper.toDTO(savedUser);
+        return userMapper.toDTO(savedUser)
+                .addLinks(savedUser, includeRelatedLinks);
     }
-
-    @GetMapping("/{id}")
-    public UserDTO getById(@PathVariable("id") int id) {
-        User retrievedUser = userService.getById(id);
-        return userMapper.toDTO(retrievedUser);
-    }
-
 }

@@ -1,4 +1,4 @@
-package com.elleined.securityquestionapi.service.pdq;
+package com.elleined.securityquestionapi.service;
 
 import com.elleined.securityquestionapi.exception.resource.ResourceNotFoundException;
 import com.elleined.securityquestionapi.mapper.PreDefinedQuestionMapper;

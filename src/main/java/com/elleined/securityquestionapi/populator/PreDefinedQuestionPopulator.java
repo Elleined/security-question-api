@@ -1,12 +1,11 @@
 package com.elleined.securityquestionapi.populator;
 
-import com.elleined.securityquestionapi.service.pdq.PreDefinedQuestionService;
+import com.elleined.securityquestionapi.service.PreDefinedQuestionService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Arrays;
 import java.util.List;
 
 @Slf4j
@@ -18,7 +17,7 @@ public class PreDefinedQuestionPopulator implements Populator {
 
     @Override
     public void populate() {
-        List<String> questions = Arrays.asList(
+        List<String> questions = List.of(
                 "What was the house number and street name you lived in as a child",
                 "What were the last four digits of your childhood telephone number",
                 "What primary school did you attend",

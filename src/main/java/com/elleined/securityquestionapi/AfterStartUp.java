@@ -1,7 +1,7 @@
 package com.elleined.securityquestionapi;
 
 import com.elleined.securityquestionapi.populator.PreDefinedQuestionPopulator;
-import com.elleined.securityquestionapi.service.pdq.PreDefinedQuestionService;
+import com.elleined.securityquestionapi.service.PreDefinedQuestionService;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
