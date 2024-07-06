@@ -1,8 +1,8 @@
 package com.elleined.securityquestionapi.mapper;
 
-import com.elleined.securityquestionapi.dto.SecurityQuestionDTO;
-import com.elleined.securityquestionapi.model.User;
+import com.elleined.securityquestionapi.dto.sq.UserDefinedSecurityQuestionDTO;
 import com.elleined.securityquestionapi.model.PreDefinedQuestion;
+import com.elleined.securityquestionapi.model.User;
 import org.mapstruct.Context;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -26,5 +26,5 @@ public interface SecurityQuestionMapper {
             @Mapping(target = "ownerId", source = "owner.id"),
             @Mapping(target = "preDefinedQuestionId", source = "preDefinedQuestion.id")
     })
-    SecurityQuestionDTO toDTO(SecurityQuestion securityQuestion);
+    UserDefinedSecurityQuestionDTO toDTO(SecurityQuestion securityQuestion);
 }

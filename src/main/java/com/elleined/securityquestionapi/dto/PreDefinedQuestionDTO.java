@@ -11,17 +11,17 @@ import java.util.List;
 
 @Getter
 @Setter
-public class UserDTO extends DTO {
-    private String name;
+public class PreDefinedQuestionDTO extends DTO {
+    private String question;
 
     @Builder
-    public UserDTO(int id, LocalDateTime createdAt, String name) {
+    public PreDefinedQuestionDTO(int id, LocalDateTime createdAt, String question) {
         super(id, createdAt);
-        this.name = name;
+        this.question = question;
     }
 
     @Override
-    public UserDTO addLinks(User currentUser, boolean doInclude) {
+    public PreDefinedQuestionDTO addLinks(User currentUser, boolean doInclude) {
         super.addLinks(currentUser, doInclude);
         return this;
     }

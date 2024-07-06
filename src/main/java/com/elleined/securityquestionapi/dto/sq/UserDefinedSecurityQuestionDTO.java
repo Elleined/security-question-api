@@ -1,5 +1,6 @@
-package com.elleined.securityquestionapi.dto;
+package com.elleined.securityquestionapi.dto.sq;
 
+import com.elleined.securityquestionapi.dto.UserDTO;
 import com.elleined.securityquestionapi.model.User;
 import lombok.Builder;
 import lombok.Getter;
@@ -11,17 +12,17 @@ import java.util.List;
 
 @Getter
 @Setter
-public class UserDTO extends DTO {
-    private String name;
+public class UserDefinedSecurityQuestionDTO extends SecurityQuestionDTO {
+    private String question;
 
     @Builder
-    public UserDTO(int id, LocalDateTime createdAt, String name) {
-        super(id, createdAt);
-        this.name = name;
+    public UserDefinedSecurityQuestionDTO(int id, LocalDateTime createdAt, UserDTO ownerDTO, String question) {
+        super(id, createdAt, ownerDTO);
+        this.question = question;
     }
 
     @Override
-    public UserDTO addLinks(User currentUser, boolean doInclude) {
+    public UserDefinedSecurityQuestionDTO addLinks(User currentUser, boolean doInclude) {
         super.addLinks(currentUser, doInclude);
         return this;
     }

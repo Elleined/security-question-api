@@ -1,9 +1,9 @@
 package com.elleined.securityquestionapi.controller;
 
-import com.elleined.securityquestionapi.dto.SecurityQuestionDTO;
+import com.elleined.securityquestionapi.dto.sq.UserDefinedSecurityQuestionDTO;
 import com.elleined.securityquestionapi.mapper.SecurityQuestionMapper;
-import com.elleined.securityquestionapi.model.User;
 import com.elleined.securityquestionapi.model.PreDefinedQuestion;
+import com.elleined.securityquestionapi.model.User;
 import com.elleined.securityquestionapi.service.question.pdq.PreDefinedQuestionService;
 import com.elleined.securityquestionapi.service.sq.SecurityQuestionService;
 import com.elleined.securityquestionapi.service.user.UserService;
@@ -25,7 +25,7 @@ public class SecurityQuestionController {
     private final PreDefinedQuestionService preDefinedQuestionService;
 
     @GetMapping
-    public List<SecurityQuestionDTO> getAllByUser(@PathVariable("currentUserId") Integer currentUserId) {
+    public List<UserDefinedSecurityQuestionDTO> getAllByUser(@PathVariable("currentUserId") Integer currentUserId) {
         User currentUser = userService.getById(currentUserId);
         return securityQuestionService.getAllByUser(currentUser).stream()
                 .map(securityQuestionMapper::toDTO)
@@ -43,9 +43,9 @@ public class SecurityQuestionController {
     }
 
     @PostMapping
-    public SecurityQuestionDTO save(@PathVariable("currentUserId") Integer currentUserId,
-                                    @RequestParam("questionId") Integer questionId,
-                                    @RequestParam("answer") String answer) {
+    public UserDefinedSecurityQuestionDTO save(@PathVariable("currentUserId") Integer currentUserId,
+                                               @RequestParam("questionId") Integer questionId,
+                                               @RequestParam("answer") String answer) {
 
         User currentUser = userService.getById(currentUserId);
         PreDefinedQuestion preDefinedQuestion = preDefinedQuestionService.getById(questionId);

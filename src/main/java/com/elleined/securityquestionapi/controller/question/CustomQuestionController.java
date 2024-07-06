@@ -1,6 +1,6 @@
 package com.elleined.securityquestionapi.controller.question;
 
-import com.elleined.securityquestionapi.dto.question.CustomQuestionDTO;
+import com.elleined.securityquestionapi.dto.sq.PreDefinedSecurityQuestionDTO;
 import com.elleined.securityquestionapi.mapper.question.CustomQuestionMapper;
 import com.elleined.securityquestionapi.model.User;
 import com.elleined.securityquestionapi.model.sq.UserDefinedSecurityQuestion;
@@ -22,9 +22,9 @@ public class CustomQuestionController {
     private final UserService userService;
 
     @PostMapping
-    public CustomQuestionDTO save(@PathVariable("currentUserId") Integer currentUserId,
-                                  @RequestParam("question") String question,
-                                  @RequestParam("answer") String answer) {
+    public PreDefinedSecurityQuestionDTO save(@PathVariable("currentUserId") Integer currentUserId,
+                                              @RequestParam("question") String question,
+                                              @RequestParam("answer") String answer) {
         User currentUser = userService.getById(currentUserId);
         UserDefinedSecurityQuestion userDefinedQuestion = customQuestionService.save(currentUser, question, answer);
         return customQuestionMapper.toDTO(userDefinedQuestion);
@@ -41,7 +41,7 @@ public class CustomQuestionController {
     }
 
     @GetMapping
-    public List<CustomQuestionDTO> getAll(@PathVariable("currentUserId") Integer currentUserId) {
+    public List<PreDefinedSecurityQuestionDTO> getAll(@PathVariable("currentUserId") Integer currentUserId) {
         User currentUser = userService.getById(currentUserId);
         return customQuestionService.getAllByOwner(currentUser).stream()
                 .map(customQuestionMapper::toDTO)
