@@ -6,6 +6,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.springframework.cache.annotation.Cacheable;
+
+@Cacheable
+@org.hibernate.annotations.Cache(region = "preDefinedSecurityQuestionCache", usage = CacheConcurrencyStrategy.READ_WRITE)
 
 @Entity
 @Table(
