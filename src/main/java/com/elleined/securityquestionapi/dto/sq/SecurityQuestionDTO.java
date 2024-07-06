@@ -2,7 +2,6 @@ package com.elleined.securityquestionapi.dto.sq;
 
 import com.elleined.securityquestionapi.dto.DTO;
 import com.elleined.securityquestionapi.dto.UserDTO;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 

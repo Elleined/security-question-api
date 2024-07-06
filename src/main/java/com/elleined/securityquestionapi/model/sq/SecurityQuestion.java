@@ -2,7 +2,10 @@ package com.elleined.securityquestionapi.model.sq;
 
 import com.elleined.securityquestionapi.model.PrimaryKeyIdentity;
 import com.elleined.securityquestionapi.model.User;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.MappedSuperclass;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
