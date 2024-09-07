@@ -11,18 +11,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/register")
 @RequiredArgsConstructor
-@RequestMapping("/users")
-public class UserController {
+public class RegisterController {
     private final UserService userService;
     private final UserMapper userMapper;
 
     @PostMapping
     public UserDTO save(@RequestParam("name") String name,
-                        @RequestParam(defaultValue = "false", name = "includeRelatedLinks") boolean includeRelatedLinks) {
+                        @RequestParam("email") String email,
+                        @RequestParam("password") String password) {
 
-        User savedUser = userService.save(name);
-        return userMapper.toDTO(savedUser)
-                .addLinks(savedUser, includeRelatedLinks);
+        User user = userService.register(name, email, password);
+        return userMapper.toDTO(user);
     }
 }
