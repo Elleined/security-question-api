@@ -3,17 +3,14 @@ package com.elleined.securityquestionapi.dto.sq;
 import com.elleined.securityquestionapi.dto.DTO;
 import com.elleined.securityquestionapi.dto.UserDTO;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.time.LocalDateTime;
-
+import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
+@SuperBuilder
+@NoArgsConstructor
 public abstract class SecurityQuestionDTO extends DTO {
     private UserDTO ownerDTO;
 
-    public SecurityQuestionDTO(int id, LocalDateTime createdAt, UserDTO ownerDTO) {
-        super(id, createdAt);
-        this.ownerDTO = ownerDTO;
-    }
 }

@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/users/{currentUserId}/pre-defined-security-questions")
+@RequestMapping("/users/pre-defined-security-questions")
 public class PreDefinedSecurityQuestionController {
     private final UserService userService;
 
@@ -27,42 +27,40 @@ public class PreDefinedSecurityQuestionController {
     private final PreDefinedQuestionService preDefinedQuestionService;
 
     @PostMapping
-    public PreDefinedSecurityQuestionDTO save(@PathVariable("currentUserId") int currentUserId,
+    public PreDefinedSecurityQuestionDTO save(@RequestHeader("Authorization") String jwt,
                                               @RequestParam("preDefinedQuestionId") int preDefinedQuestionId,
                                               @RequestParam("answer") String answer,
                                               @RequestParam(defaultValue = "false", name = "includeRelatedLinks") boolean includeRelatedLinks) {
 
-        User currentUser = userService.getById(currentUserId);
+        User currentUser = userService.getByJWT(jwt);
         PreDefinedQuestion preDefinedQuestion = preDefinedQuestionService.getById(preDefinedQuestionId);
 
         PreDefinedSecurityQuestion preDefinedSecurityQuestion = preDefinedSecurityQuestionService.save(currentUser, preDefinedQuestion, answer);
 
-        return preDefinedSecurityQuestionMapper.toDTO(preDefinedSecurityQuestion)
-                .addLinks(currentUser, includeRelatedLinks);
+        return preDefinedSecurityQuestionMapper.toDTO(preDefinedSecurityQuestion);
     }
 
     @GetMapping
-    public Page<PreDefinedSecurityQuestionDTO> getAll(@PathVariable("currentUserId") int currentUserId,
+    public Page<PreDefinedSecurityQuestionDTO> getAll(@RequestHeader("Authorization") String jwt,
                                                       @RequestParam(required = false, defaultValue = "1", value = "pageNumber") int pageNumber,
                                                       @RequestParam(required = false, defaultValue = "5", value = "pageSize") int pageSize,
                                                       @RequestParam(required = false, defaultValue = "ASC", value = "sortDirection") Sort.Direction direction,
                                                       @RequestParam(required = false, defaultValue = "id", value = "sortBy") String sortBy,
                                                       @RequestParam(defaultValue = "false", name = "includeRelatedLinks") boolean includeRelatedLinks) {
 
-        User currentUser = userService.getById(currentUserId);
+        User currentUser = userService.getByJWT(jwt);
 
         Pageable pageable = PageRequest.of(pageNumber - 1, pageSize, direction, sortBy);
         return preDefinedSecurityQuestionService.getAll(currentUser, pageable)
-                .map(preDefinedSecurityQuestionMapper::toDTO)
-                .map(dto -> dto.addLinks(currentUser, includeRelatedLinks));
+                .map(preDefinedSecurityQuestionMapper::toDTO);
     }
 
     @GetMapping("/{securityQuestionId}/check-answer")
-    public boolean isAnswerCorrect(@PathVariable("currentUserId") int currentUserId,
+    public boolean isAnswerCorrect(@RequestHeader("Authorization") String jwt,
                                    @PathVariable("securityQuestionId") int securityQuestionId,
                                    @RequestParam("providedAnswer") String providedAnswer) {
 
-        User currentUser = userService.getById(currentUserId);
+        User currentUser = userService.getByJWT(jwt);
         PreDefinedSecurityQuestion securityQuestion = preDefinedSecurityQuestionService.getById(securityQuestionId);
 
         return preDefinedSecurityQuestionService.isAnswerCorrect(currentUser, securityQuestion, providedAnswer);
