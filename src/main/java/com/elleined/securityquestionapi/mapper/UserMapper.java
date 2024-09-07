@@ -13,6 +13,7 @@ public interface UserMapper extends CustomMapper<User, UserDTO> {
             @Mapping(target = "id", source = "id"),
             @Mapping(target = "createdAt", source = "createdAt"),
 
+            @Mapping(target = "email", source = "email"),
             @Mapping(target = "name", source = "name"),
     })
     UserDTO toDTO(User user);
@@ -21,11 +22,15 @@ public interface UserMapper extends CustomMapper<User, UserDTO> {
             @Mapping(target = "id", ignore = true),
             @Mapping(target = "createdAt", expression = "java(java.time.LocalDateTime.now())"),
 
+            @Mapping(target = "email", source = "email"),
+            @Mapping(target = "password", source = "password"),
             @Mapping(target = "name", source = "name"),
 
             @Mapping(target = "preDefinedSecurityQuestions", expression = "java(new java.util.HashSet<>())"),
             @Mapping(target = "userDefinedQuestions", expression = "java(new java.util.ArrayList<>())")
     })
-    User toEntity(String name);
+    User toEntity(String name,
+                  String email,
+                  String password);
 
 }
