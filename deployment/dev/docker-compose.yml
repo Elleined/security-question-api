@@ -1,0 +1,48 @@
+services:
+  dev-sqa-mysql-server:
+    image: mysql:${MYSQL_IMAGE_TAG}
+    container_name: ${MYSQL_CONTAINER_NAME}
+    environment:
+      - TZ=Asia/Manila
+      - MYSQL_ROOT_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+    ports:
+      - "${MYSQL_HOST_PORT}:${MYSQL_CONTAINER_PORT}"
+    networks:
+      - dev-sqa-network
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "${MYSQL_CONTAINER_NAME}", "-u", "${MYSQL_USER}", "--password=${MYSQL_PASSWORD}" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+
+  dev-sqa-redis-server:
+    image: redis:${REDIS_IMAGE_TAG}
+    container_name: ${REDIS_CONTAINER_NAME}
+    environment:
+      - TZ=Asia/Manila
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+    ports:
+      - "${REDIS_HOST_PORT}:${REDIS_CONTAINER_PORT}"
+    networks:
+      - dev-sqa-network
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+    healthcheck:
+      test: [ "CMD", "redis-cli", "--no-auth-warning", "-a", "$$REDIS_PASSWORD", "ping" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+
+networks:
+  dev-sqa-network:
+    name: ${NETWORK_NAME}
+    external: false
+    ipam:
+      driver: default
