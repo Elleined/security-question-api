@@ -26,19 +26,19 @@ public class PreDefinedSecurityQuestionServiceImpl implements PreDefinedSecurity
     }
 
     @Override
-    @Cacheable(value = "preDefinedSecurityQuestion:getAll", key = "#id + '-' + #request.page + '-' + #request.size")
-    public List<PreDefinedSecurityQuestionDTO> getAll(UUID id, PageRequest request) {
-        return preDefinedSecurityQuestionRepository.findAll(id, request.page(), request.size());
+    @Cacheable(value = "preDefinedSecurityQuestion:getAll", key = "#resourceId + '-' + #request.page + '-' + #request.size")
+    public List<PreDefinedSecurityQuestionDTO> getAll(UUID resourceId, PageRequest request) {
+        return preDefinedSecurityQuestionRepository.findAll(resourceId, request.page(), request.size());
     }
 
     @Override
-    @Cacheable(value = "preDefinedSecurityQuestion:getAllTotal", key = "#id")
-    public int getAllTotal(UUID id) {
-        return preDefinedSecurityQuestionRepository.findAllTotal(id);
+    @Cacheable(value = "preDefinedSecurityQuestion:getAllTotal", key = "#resourceId")
+    public int getAllTotal(UUID resourceId) {
+        return preDefinedSecurityQuestionRepository.findAllTotal(resourceId);
     }
 
     @Override
-    @CacheEvict(value = {"preDefinedSecurityQuestion:getAll", "preDefinedSecurityQuestion:getAllTotal"}, allEntries = true)
+    @CacheEvict(value = {"preDefinedSecurityQuestion:getAll", "preDefinedSecurityQuestion:getAllTotal", "preDefinedSecurityQuestion:isAnswerCorrect"}, allEntries = true)
     public void save(PreDefinedSecurityQuestionRequest request) throws SecurityQuestionAPIException {
         if (preDefinedSecurityQuestionRepository.isExists(request.resourceId(), request.securityQuestionId()))
             throw new SecurityQuestionAPIException("resource id and security question id combination already exists");
@@ -51,7 +51,7 @@ public class PreDefinedSecurityQuestionServiceImpl implements PreDefinedSecurity
     }
 
     @Override
-    @CacheEvict(value = {"preDefinedSecurityQuestion:getAll", "preDefinedSecurityQuestion:getAllTotal"}, allEntries = true)
+    @CacheEvict(value = {"preDefinedSecurityQuestion:getAll", "preDefinedSecurityQuestion:getAllTotal", "preDefinedSecurityQuestion:isAnswerCorrect"}, allEntries = true)
     public void updateAnswer(@NotNull PreDefinedSecurityQuestionRequest request) throws SecurityQuestionAPIException {
         String hashedAnswer = passwordEncoder.encode(request.answer());
         if (hashedAnswer == null)
@@ -61,11 +61,9 @@ public class PreDefinedSecurityQuestionServiceImpl implements PreDefinedSecurity
     }
 
     @Override
-    @Cacheable(value = "preDefinedSecurityQuestion:getAll", key = "#request")
+    @Cacheable(value = "preDefinedSecurityQuestion:isAnswerCorrect", key = "#request")
     public boolean isAnswerCorrect(PreDefinedSecurityQuestionRequest request) {
         String fetchedAnswer = preDefinedSecurityQuestionRepository.findAnswer(request.resourceId(), request.securityQuestionId());
-        String hashedAnswer = passwordEncoder.encode(request.answer());
-
         return passwordEncoder.matches(request.answer(), fetchedAnswer);
     }
 }

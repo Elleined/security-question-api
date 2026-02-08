@@ -9,10 +9,10 @@ import java.util.UUID;
 
 public interface PreDefinedSecurityQuestionService {
 
-    List<PreDefinedSecurityQuestionDTO> getAll(@org.hibernate.validator.constraints.UUID UUID id,
+    List<PreDefinedSecurityQuestionDTO> getAll(@org.hibernate.validator.constraints.UUID UUID resourceId,
                                                @NotNull PageRequest request);
 
-    int getAllTotal(@org.hibernate.validator.constraints.UUID UUID id);
+    int getAllTotal(@org.hibernate.validator.constraints.UUID UUID resourceId);
 
     void save(@NotNull PreDefinedSecurityQuestionRequest request) throws SecurityQuestionAPIException;
 
