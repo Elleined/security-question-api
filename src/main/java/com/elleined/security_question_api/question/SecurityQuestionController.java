@@ -2,10 +2,12 @@ package com.elleined.security_question_api.question;
 
 import com.elleined.security_question_api.paging.PageRequest;
 import com.elleined.security_question_api.paging.Pageable;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/security-questions")
@@ -26,23 +28,5 @@ public class SecurityQuestionController {
         List<SecurityQuestionDTO> securityQuestions = securityQuestionService.getAll(name, request);
 
         return Pageable.of(securityQuestions, request, totalElements);
-
-    }
-
-    @PostMapping
-    public void save(@RequestParam("name") String name) {
-        securityQuestionService.save(name);
-    }
-
-    @PutMapping("/{id}")
-    public void update(@PathVariable("id") UUID id,
-                       @RequestParam("name") String name) {
-
-        securityQuestionService.update(id, name);
-    }
-
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable("id") UUID id) {
-        securityQuestionService.delete(id);
     }
 }

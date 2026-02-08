@@ -5,7 +5,6 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -13,7 +12,7 @@ import java.util.UUID;
 public record UserDefinedSecurityQuestion(
         @Column("id") @Nullable @Id UUID id,
         @Column("created_at") LocalDateTime createdAt,
-        @Column("resource_id") BigDecimal resourceId,
+        @Column("resource_id") UUID resourceId,
         @Column("answer") String answer,
         @Column("question") String question
 ) {

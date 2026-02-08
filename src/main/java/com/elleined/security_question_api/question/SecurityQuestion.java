@@ -6,10 +6,11 @@ import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Table("security_question")
 public record SecurityQuestion(
-        @Column("id") @Nullable @Id Long id,
+        @Column("id") @Nullable @Id UUID id,
         @Column("created_at") LocalDateTime createdAt,
         @Column("name") String name
 ) {

@@ -7,7 +7,6 @@ import org.springframework.data.jdbc.core.mapping.AggregateReference;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -15,7 +14,7 @@ import java.util.UUID;
 public record PreDefinedSecurityQuestion(
         @Column("id") @Nullable @Id UUID id,
         @Column("created_at") LocalDateTime createdAt,
-        @Column("resource_id") BigDecimal resourceId,
+        @Column("resource_id") UUID resourceId,
         @Column("answer") String answer,
         @Column("question_id") AggregateReference<SecurityQuestion, UUID> question
 ) {
