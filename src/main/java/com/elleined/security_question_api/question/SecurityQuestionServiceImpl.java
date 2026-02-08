@@ -25,7 +25,7 @@ public class SecurityQuestionServiceImpl implements SecurityQuestionService {
     }
 
     @Override
-    @Cacheable(value = "securityQuestion:getAllTotal", key = "#name")
+    @Cacheable(value = "securityQuestion:getAllTotal", key = "#name", condition = "#name != null")
     public int getAllTotal(String name) {
         return securityQuestionRepository.findAllTotal(name);
     }

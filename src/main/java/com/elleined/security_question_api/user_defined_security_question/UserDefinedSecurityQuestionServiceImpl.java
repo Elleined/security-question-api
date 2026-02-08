@@ -2,6 +2,7 @@ package com.elleined.security_question_api.user_defined_security_question;
 
 import com.elleined.security_question_api.exception.SecurityQuestionAPIException;
 import com.elleined.security_question_api.paging.PageRequest;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -38,12 +39,12 @@ public class UserDefinedSecurityQuestionServiceImpl implements UserDefinedSecuri
 
     @Override
     @CacheEvict(value = {"userDefinedSecurityQuestion:getAll", "userDefinedSecurityQuestion:getAllTotal", "userDefinedSecurityQuestion:isAnswerCorrect"}, allEntries = true)
-    public void save(UUID resourceId, String question, String answer) throws SecurityQuestionAPIException {
-        String hashedAnswer = passwordEncoder.encode(answer);
+    public void save(@NotNull UserDefinedSecurityQuestionSaveRequest request) throws SecurityQuestionAPIException {
+        String hashedAnswer = passwordEncoder.encode(request.answer());
         if (hashedAnswer == null)
             throw new SecurityQuestionAPIException("Something went wrong while hashing the answer");
 
-        userDefinedSecurityQuestionRepository.save(resourceId, question, hashedAnswer);
+        userDefinedSecurityQuestionRepository.save(request.resourceId(), request.question(), hashedAnswer);
     }
 
     @Override

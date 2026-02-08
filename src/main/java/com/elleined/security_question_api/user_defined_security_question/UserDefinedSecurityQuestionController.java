@@ -31,11 +31,8 @@ public class UserDefinedSecurityQuestionController {
     }
 
     @PostMapping
-    public void save(@RequestParam("resource_id") UUID resourceId,
-                     @RequestParam("question") String question,
-                     @RequestParam("answer") String answer) throws SecurityQuestionAPIException {
-
-        userDefinedSecurityQuestionService.save(resourceId, question, answer);
+    public void save(@Valid @RequestBody UserDefinedSecurityQuestionSaveRequest request) throws SecurityQuestionAPIException {
+        userDefinedSecurityQuestionService.save(request);
     }
 
     @PatchMapping
@@ -43,7 +40,7 @@ public class UserDefinedSecurityQuestionController {
         userDefinedSecurityQuestionService.updateAnswer(request);
     }
 
-    @GetMapping("/is-answer-correct")
+    @PostMapping("/is-answer-correct")
     public boolean isAnswerCorrect(@Valid @RequestBody UserDefinedSecurityQuestionRequest request) {
         return userDefinedSecurityQuestionService.isAnswerCorrect(request);
     }

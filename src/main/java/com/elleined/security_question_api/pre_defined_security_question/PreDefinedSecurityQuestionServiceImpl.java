@@ -2,7 +2,6 @@ package com.elleined.security_question_api.pre_defined_security_question;
 
 import com.elleined.security_question_api.exception.SecurityQuestionAPIException;
 import com.elleined.security_question_api.paging.PageRequest;
-import jakarta.validation.constraints.NotNull;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -52,7 +51,7 @@ public class PreDefinedSecurityQuestionServiceImpl implements PreDefinedSecurity
 
     @Override
     @CacheEvict(value = {"preDefinedSecurityQuestion:getAll", "preDefinedSecurityQuestion:getAllTotal", "preDefinedSecurityQuestion:isAnswerCorrect"}, allEntries = true)
-    public void updateAnswer(@NotNull PreDefinedSecurityQuestionRequest request) throws SecurityQuestionAPIException {
+    public void updateAnswer(PreDefinedSecurityQuestionRequest request) throws SecurityQuestionAPIException {
         String hashedAnswer = passwordEncoder.encode(request.answer());
         if (hashedAnswer == null)
             throw new SecurityQuestionAPIException("Something went wrong while hashing the answer");

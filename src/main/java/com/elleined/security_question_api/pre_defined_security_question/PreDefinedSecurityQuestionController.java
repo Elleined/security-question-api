@@ -19,7 +19,7 @@ public class PreDefinedSecurityQuestionController {
     }
 
     @GetMapping
-    public Pageable<PreDefinedSecurityQuestionDTO> getAll(@RequestParam(value = "resource_id", required = false) UUID resourceId,
+    public Pageable<PreDefinedSecurityQuestionDTO> getAll(@RequestParam("resource_id") UUID resourceId,
                                                           @RequestParam(value = "page", defaultValue = "1", required = false) int page,
                                                           @RequestParam(value = "size", defaultValue = "5", required = false) int size) {
 
@@ -40,7 +40,7 @@ public class PreDefinedSecurityQuestionController {
         preDefinedSecurityQuestionService.updateAnswer(request);
     }
 
-    @GetMapping("/is-answer-correct")
+    @PostMapping("/is-answer-correct")
     public boolean isAnswerCorrect(@Valid @RequestBody PreDefinedSecurityQuestionRequest request) {
         return preDefinedSecurityQuestionService.isAnswerCorrect(request);
     }

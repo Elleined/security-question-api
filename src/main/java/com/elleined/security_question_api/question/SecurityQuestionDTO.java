@@ -8,6 +8,6 @@ import java.util.UUID;
 
 public record SecurityQuestionDTO(
         @Column("id") @JsonProperty("id") UUID id,
-        @Column("question") @JsonProperty("question") String question
+        @Column("name") @JsonProperty("name") String name
 ) implements Serializable {
 }

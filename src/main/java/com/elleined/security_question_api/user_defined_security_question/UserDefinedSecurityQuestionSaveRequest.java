@@ -6,14 +6,14 @@ import jakarta.validation.constraints.NotNull;
 
 import java.util.UUID;
 
-public record UserDefinedSecurityQuestionRequest(
-        @JsonProperty("id")
-        @NotNull(message = "Resource id is required")
-        UUID id,
-
+public record UserDefinedSecurityQuestionSaveRequest(
         @JsonProperty("resource_id")
         @NotNull(message = "Resource id is required")
         UUID resourceId,
+
+        @JsonProperty("question")
+        @NotBlank(message = "Question is required")
+        String question,
 
         @JsonProperty("answer")
         @NotBlank(message = "Answer is required")
