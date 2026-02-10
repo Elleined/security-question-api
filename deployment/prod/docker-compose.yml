@@ -1,0 +1,95 @@
+services:
+  backend:
+    image: elleined/security-question-api:${IMAGE_TAG}
+    container_name: ${CONTAINER_NAME}
+    restart: always
+    environment:
+      - TZ=Asia/Manila
+      - MYSQL_HOST=${MYSQL_CONTAINER_NAME}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_PORT=${MYSQL_CONTAINER_PORT}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - REDIS_TTL=${REDIS_TTL}
+      - REDIS_HOST=${REDIS_CONTAINER_NAME}
+      - REDIS_PORT=${REDIS_CONTAINER_PORT}
+      - REDIS_DATABASE=${REDIS_DATABASE}
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+      - PORT=${PORT}
+      - LOG_LEVEL=${LOG_LEVEL}
+      - ALLOWED_ORIGINS=${ALLOWED_ORIGINS}
+      - SPRING_OPENAPI_ENABLED=${SPRING_OPENAPI_ENABLED}
+    ports:
+      - "${PORT}:${PORT}"
+    networks:
+      - prod-sqa-network
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+    depends_on:
+      prod-sqa-mysql-server:
+        condition: service_healthy
+      prod-sqa-redis-server:
+        condition: service_healthy
+    healthcheck:
+      test: [ "CMD", "wget", "--spider", "http://${CONTAINER_NAME}:${PORT}/${CONTEXT_PATH}/actuator/health" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+  prod-sqa-mysql-server:
+    image: mysql:${MYSQL_IMAGE_TAG}
+    container_name: ${MYSQL_CONTAINER_NAME}
+    restart: always
+    environment:
+      - TZ=Asia/Manila
+      - MYSQL_ROOT_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+    ports:
+      - "${MYSQL_HOST_PORT}:${MYSQL_CONTAINER_PORT}"
+    networks:
+      - prod-sqa-network
+    volumes:
+      - prod-sqa-volume:/var/lib/mysql
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "${MYSQL_CONTAINER_NAME}", "-u", "${MYSQL_USER}", "--password=${MYSQL_PASSWORD}" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+
+  prod-sqa-redis-server:
+    image: redis:${REDIS_IMAGE_TAG}
+    container_name: ${REDIS_CONTAINER_NAME}
+    restart: always
+    environment:
+      - TZ=Asia/Manila
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+    ports:
+      - "${REDIS_HOST_PORT}:${REDIS_CONTAINER_PORT}"
+    networks:
+      - prod-sqa-network
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+    healthcheck:
+      test: [ "CMD", "redis-cli", "--no-auth-warning", "-a", "$$REDIS_PASSWORD", "ping" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+
+volumes:
+  prod-sqa-volume:
+    name: ${VOLUME_NAME}
+    external: false
+
+networks:
+  prod-sqa-network:
+    name: ${NETWORK_NAME}
+    external: false
+    ipam:
+      driver: default
